@@ -1,4 +1,5 @@
 #include "canvas.h"
+#include "node.h"
 
 Canvas::Canvas() :
     QGraphicsView() {
@@ -13,4 +14,9 @@ Canvas::Canvas() :
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(AnchorUnderMouse);
     setMinimumSize(400, 400);
+}
+
+void Canvas::addNode(const QPointF& pt) {
+    Node* node = new Node(pt);
+    scene->addItem(node);
 }

@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     canvas = new Canvas();
     ui->mainGrid->addWidget(canvas);
+
+    canvas->addNode(QPointF(100,100));
+
 }
 
 MainWindow::~MainWindow()

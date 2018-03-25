@@ -9,6 +9,8 @@ class Canvas : public QGraphicsView
 {
 public:
     Canvas();
+
+    void addNode(const QPointF& pt);
 private:
     QGraphicsScene* scene;
 };

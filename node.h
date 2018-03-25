@@ -6,7 +6,7 @@
 class Node : public QGraphicsObject
 {
 public:
-    Node();
+    Node(const QPointF& scenePos);
 
 private:
     QRectF content;

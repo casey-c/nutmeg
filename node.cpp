@@ -7,13 +7,15 @@
 
 #define BORDER_RADIUS 10
 
-Node::Node() {
+Node::Node(const QPointF& scenePos) {
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
 
     content = QRectF( QPointF(0,0), QPointF(qreal(EMPTY_CUT_SIZE),
                                             qreal(EMPTY_CUT_SIZE)) );
+
+    setPos(scenePos);
 }
 
 QRectF Node::boundingRect() const {
