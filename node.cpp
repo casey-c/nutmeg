@@ -1,5 +1,6 @@
 #include "node.h"
 #include <QPainter>
+#include <QDebug>
 
 #define GRID_SPACING   16
 #define STATEMENT_SIZE 32
@@ -36,4 +37,14 @@ void Node::paint(QPainter* painter,
 
     painter->setBrush(QBrush(QColor(45,47,72,240)));
     painter->drawRoundedRect(content, qreal(BORDER_RADIUS), qreal(BORDER_RADIUS));
+}
+
+void Node::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
+    qDebug() << "entered node";
+    QGraphicsObject::hoverEnterEvent(evt);
+}
+
+void Node::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
+    qDebug() << "left node";
+    QGraphicsObject::hoverEnterEvent(evt);
 }

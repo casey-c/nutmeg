@@ -20,6 +20,7 @@ private:
     Ui::MainWindow *ui;
 
     Canvas* canvas;
+
 };
 
 #endif // MAINWINDOW_H

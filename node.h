@@ -24,8 +24,8 @@ private:
     //void mouseMoveEvent(QGraphicsSceneMouseEvent* evt) override;
     //void mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) override;
 
-    //void hoverEnterEvent(QGraphicsSceneHoverEvent* evt) override;
-    //void hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* evt) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) override;
 };
 
 #endif // NODE_H

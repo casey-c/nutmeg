@@ -27,12 +27,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     node.cpp \
-    canvas.cpp
+    canvas.cpp \
+    colorpalette.cpp \
+    palettemanager.cpp
 
 HEADERS += \
         mainwindow.h \
     node.h \
-    canvas.h
+    canvas.h \
+    colorpalette.h \
+    palettemanager.h
 
 FORMS += \
         mainwindow.ui

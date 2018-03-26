@@ -13,6 +13,10 @@ public:
     void addNode(const QPointF& pt);
 private:
     QGraphicsScene* scene;
+    QPointF mousePos;
+
+    void mouseMoveEvent(QMouseEvent* evt) override;
+    void keyPressEvent(QKeyEvent* evt) override;
 };
 
 #endif // CANVAS_H
