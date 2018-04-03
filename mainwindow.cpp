@@ -1,3 +1,4 @@
+#include "canvas.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -6,11 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    canvas = new Canvas();
-    ui->mainGrid->addWidget(canvas);
-
-    canvas->addNode(QPointF(100,100));
-
+    ui->verticalLayout->addWidget(new Canvas(this));
 }
 
 MainWindow::~MainWindow()

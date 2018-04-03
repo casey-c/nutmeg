@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-03-13T14:27:42
+# Project created by QtCreator 2017-05-27T10:53:47
 #
 #-------------------------------------------------
 
@@ -12,7 +12,7 @@ TARGET = nutmeg
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
-# any feature of Qt which has been marked as deprecated (the exact warnings
+# any feature of Qt which as been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -27,16 +27,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     node.cpp \
-    canvas.cpp \
-    colorpalette.cpp \
-    palettemanager.cpp
+    canvas.cpp
 
 HEADERS += \
         mainwindow.h \
     node.h \
-    canvas.h \
-    colorpalette.h \
-    palettemanager.h
+    canvas.h
 
 FORMS += \
         mainwindow.ui
