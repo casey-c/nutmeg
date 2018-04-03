@@ -121,10 +121,10 @@ private:
                QWidget* widget) override;
 
     // Sizing
-    QRectF toCollision(QRectF draw) const;
-    QRectF toDraw(QRectF collision) const;
-    QRectF getSceneCollisionBox(qreal deltaX = 0, qreal deltaY = 0) const;
-    QRectF getSceneDraw(qreal deltaX = 0, qreal deltaY = 0) const;
+    QRectF sceneCollisionBox() const;
+    QRectF localCollisionBox() const;
+    QRectF sceneDrawBox(int xOffset = 0, int yOffset = 0) const;
+
     void updateAncestors();
 
     // Collision Checking

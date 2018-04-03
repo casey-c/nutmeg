@@ -9,7 +9,7 @@ Canvas::Canvas(QWidget* parent) :
     QGraphicsView(parent),
     mouseShiftPress(false),
     noMouseMovement(false),
-    showBounds(false)
+    showBounds(true)
 {
     scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
