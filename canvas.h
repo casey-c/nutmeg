@@ -8,7 +8,7 @@ class Node;
 class Canvas : public QGraphicsView
 {
 public:
-    Canvas();
+    Canvas(QWidget* parent = 0);
 
     void addNode(const QPointF& pt);
 private:

@@ -5,11 +5,15 @@
 
 class Node : public QGraphicsObject
 {
+    Q_OBJECT
+
 public:
     Node(const QPointF& scenePos);
 
 private:
     QRectF content;
+    bool moving;
+
     //QRectF collision;
 
     /* Graphics */
@@ -20,9 +24,9 @@ private:
                QWidget* widget) override;
 
     /* Mouse */
-    //void mousePressEvent(QGraphicsSceneMouseEvent* evt) override;
-    //void mouseMoveEvent(QGraphicsSceneMouseEvent* evt) override;
-    //void mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent* evt) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* evt) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) override;
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent* evt) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) override;

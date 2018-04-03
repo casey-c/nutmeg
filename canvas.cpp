@@ -4,8 +4,8 @@
 #include <QMouseEvent>
 #include <QDebug>
 
-Canvas::Canvas() :
-    QGraphicsView() {
+Canvas::Canvas(QWidget* parent) :
+    QGraphicsView(parent) {
 
     scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -17,6 +17,7 @@ Canvas::Canvas() :
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(AnchorUnderMouse);
     setMinimumSize(400, 400);
+    setMouseTracking(true);
 }
 
 void Canvas::addNode(const QPointF& pt) {
@@ -26,6 +27,7 @@ void Canvas::addNode(const QPointF& pt) {
 
 void Canvas::mouseMoveEvent(QMouseEvent* evt) {
     mousePos = mapToScene(evt->pos());
+    QGraphicsView::mouseMoveEvent(evt);
 }
 
 void Canvas::keyPressEvent(QKeyEvent* evt) {
