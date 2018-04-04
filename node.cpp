@@ -25,14 +25,11 @@
 // Forward declarations for helper functions (implementation located at end)
 QPointF snapPoint(const QPointF &pt);
 qreal dist(const QPointF &a, const QPointF &b);
-bool rectsCollide(const QRectF &a, const QRectF &b);
 void printPt(const QString &s, const QPointF &pt);
 void printRect(const QString &s, const QRectF &r);
 void printMinMax(qreal minX, qreal minY, qreal maxX, qreal maxY);
 QList<QPointF> constructBloom(QPointF scenePos, QPointF sceneTarget);
-bool pointInRect(const QPointF &pt, const QRectF &rect);
 QList<QPointF> constructAddBloom(const QPointF &scenePos);
-bool rectSurroundedBy(QRectF inside, QRectF outside);
 
 // Static var intitial declaration
 int Node::globalID = 0;
@@ -313,14 +310,14 @@ void Node::setSelectionFromBox(Node* root, QRectF selBox)
             queue.pop_front();
 
             // Try and find a node that is surrounded
-            if (rectSurroundedBy(curr->sceneDrawBox(), selBox))
+            if (selBox.contains(curr->sceneDrawBox()))
             {
                 selOnThisLevel = true;
                 curr->canvas->selectNode(curr);
             }
             // If its not completely surrounded, but is colliding at least, then
             // its children need to be checked at the next level
-            else if (rectsCollide(curr->sceneDrawBox(), selBox))
+            else if (curr->sceneDrawBox().intersects( selBox ))
                 for (Node* c : curr->children)
                     next.append(c);
         }
@@ -408,9 +405,6 @@ QRectF Node::sceneCollisionBox() const
 
 QRectF Node::localCollisionBox() const
 {
-    canvas->addRedBound(drawBox.marginsAdded(QMarginsF(qreal(COLLISION_OFFSET), qreal(COLLISION_OFFSET),
-                                                       qreal(COLLISION_OFFSET), qreal(COLLISION_OFFSET))));
-
     return drawBox.marginsAdded(QMarginsF(qreal(COLLISION_OFFSET), qreal(COLLISION_OFFSET),
                                 qreal(COLLISION_OFFSET), qreal(COLLISION_OFFSET)));
 }
@@ -418,7 +412,7 @@ QRectF Node::localCollisionBox() const
 /*
  * Converts the drawBox local to a drawBox scene
  */
-QRectF Node::sceneDrawBox(int xOffset, int yOffset) const
+QRectF Node::sceneDrawBox(qreal xOffset, qreal yOffset) const
 {
     return mapRectToScene(drawBox.translated(xOffset, yOffset));
 }
@@ -604,29 +598,14 @@ QRectF Node::predictMySceneDraw(QList<Node*> altNodes, QList<QRectF> altDraws)
     // Edge case
     if (children.empty() && isCut())
     {
-        if (isCut())
-        {
-            // Return an empty cut
-            QRectF sceneDraw = sceneDrawBox();
-            qreal cx = (sceneDraw.left() + sceneDraw.right()) / 2;
-            qreal cy = (sceneDraw.top() + sceneDraw.bottom()) / 2;
-            QPointF tl(cx - qreal(EMPTY_CUT_SIZE / 2),
-                       cy - qreal(EMPTY_CUT_SIZE / 2));
-            QPointF br(cx + qreal(EMPTY_CUT_SIZE / 2),
-                       cy + qreal(EMPTY_CUT_SIZE / 2));
-            return QRectF(tl, br);
-        }
-        else if (isStatement())
-        {
-            QRectF sceneDraw = sceneDrawBox();
-            qreal cx = (sceneDraw.left() + sceneDraw.right()) / 2;
-            qreal cy = (sceneDraw.top() + sceneDraw.bottom()) / 2;
-            QPointF tl(cx - qreal(STATEMENT_SIZE / 2),
-                       cy - qreal(STATEMENT_SIZE / 2));
-            QPointF br(cx + qreal(STATEMENT_SIZE / 2),
-                       cy + qreal(STATEMENT_SIZE / 2));
-            return QRectF(tl, br);
-        }
+        QRectF sceneDraw = sceneDrawBox();
+        qreal cx = (sceneDraw.left() + sceneDraw.right()) / 2;
+        qreal cy = (sceneDraw.top() + sceneDraw.bottom()) / 2;
+        QPointF tl(cx - qreal(EMPTY_CUT_SIZE / 2),
+                   cy - qreal(EMPTY_CUT_SIZE / 2));
+        QPointF br(cx + qreal(EMPTY_CUT_SIZE / 2),
+                   cy + qreal(EMPTY_CUT_SIZE / 2));
+        return QRectF(tl, br);
     }
 
 
@@ -947,7 +926,7 @@ loop:
         if (n == this)
             continue;
 
-        if (pointInRect(pt, n->sceneDrawBox()))
+        if (n->sceneDrawBox().contains(pt))
         {
             collider = n;
             pot = collider->children;
@@ -1026,24 +1005,6 @@ qreal dist(const QPointF &a, const QPointF &b)
 {
     return qSqrt( qPow( ( a.x() - b.x() ), 2) +
                   qPow( ( a.y() - b.y() ), 2) );
-}
-
-/*
- * Efficient way to determine if two rectangles collide. These rectangles must
- * be located
- */
-bool rectsCollide(const QRectF &a, const QRectF &b)
-{
-    qreal ax1, ax2, ay1, ay2;
-    a.getCoords(&ax1, &ay1, &ax2, &ay2);
-
-    qreal bx1, bx2, by1, by2;
-    b.getCoords(&bx1, &by1, &bx2, &by2);
-
-    return ( ax1 < bx2 &&
-             ax2 > bx1 &&
-             ay1 < by2 &&
-             ay2 > by1 );
 }
 
 /*
@@ -1136,16 +1097,6 @@ QList<QPointF> constructBloom(QPointF scenePos, QPointF sceneTarget)
         relBloom.append(QPointF(pt.x() - scenePos.x(),  pt.y() - scenePos.y()));
 
     return relBloom;
-}
-
-
-/*
- * Pt and rect should be in the same coordinate system
- */
-bool pointInRect(const QPointF &pt, const QRectF &rect)
-{
-    return (pt.x() > rect.left() && pt.x() < rect.right() &&
-            pt.y() > rect.top() && pt.y() < rect.bottom());
 }
 
 /*
@@ -1302,7 +1253,7 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
                 //newColl = potColl;
             //}
 
-            if (rectsCollide(potColl, n->sceneCollisionBox()))
+            if (potColl.intersects(n->sceneCollisionBox()))
             {
                 collOkay = false;
                 break;
@@ -1391,16 +1342,6 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
     // Nothing worked, so return snapped
     return bloom.first();
 }
-
-// Assumed that they collide & share the same coord system
-bool rectSurroundedBy(QRectF inside, QRectF outside)
-{
-    return  inside.left() >= outside.left() &&
-            inside.top() >= outside.top() &&
-            inside.right() <= outside.right() &&
-            inside.bottom() <= outside.bottom();
-}
-
 
 
 
