@@ -523,7 +523,7 @@ bool Node::checkPotential(QList<Node*> changedNodes, QPointF pt)
                     {
                         // Compare the collision boxes, since at least one of
                         // the nodes to compare is a cut
-                        if (n->sceneCollisionBox().intersects(changed->localCollisionBox()))
+                        if (n->sceneCollisionBox().intersects(changed->sceneCollisionBox()))
                             return false;
 
                     }
@@ -816,8 +816,6 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             qDebug() << "Moved around in same parent";
             parent->updateAncestors();
         }
-
-
     }
 
     //setZValue(Z_NORMAL);
