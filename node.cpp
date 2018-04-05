@@ -512,21 +512,20 @@ bool Node::checkPotential(QList<Node*> changedNodes, QPointF pt)
             {
                 if (!changedNodes.contains(n) )
                 {
+                    QRectF nextCollBox;
                     // Both statements, so only compare drawboxes (allows
                     // statements to be closer together visually)
                     if (changed->isStatement() && n->isStatement())
                     {
-                        if (n->sceneDrawBox().intersects(changedRect))
-                            return false;
+                        nextCollBox = n->sceneDrawBox();
                     }
                     else
                     {
-                        // Compare the collision boxes, since at least one of
-                        // the nodes to compare is a cut
-                        if (n->sceneCollisionBox().intersects(changed->sceneCollisionBox()))
-                            return false;
-
+                        nextCollBox = n->sceneCollisionBox();
                     }
+
+                    if (nextCollBox.intersects(changedRect))
+                        return false;
                 }
             }
 
