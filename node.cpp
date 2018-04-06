@@ -431,8 +431,8 @@ void Node::updateAncestors()
     QRectF myNewDrawBox = predictMySceneDraw(QList<Node*>(), QList<QRectF>());
     QRectF sceneDraw = sceneDrawBox();
 
-    canvas->addRedBound(myNewDrawBox);
-    canvas->addBlueBound(sceneDraw);
+    //canvas->addRedBound(myNewDrawBox);
+    //canvas->addBlueBound(sceneDraw);
 
     // Check if any changes occur
     if ( myNewDrawBox.left() != sceneDraw.left()   ||
@@ -479,9 +479,13 @@ void Node::updateAncestors()
 bool Node::checkPotential(QList<Node*> changedNodes, QPointF pt)
 {
     QList<QRectF> drawBoxes; // scene mapped
+    //qDebug() << ""
 
     for (Node* n : changedNodes)
+    {
         drawBoxes.append(n->sceneDrawBox(pt.x(), pt.y()));
+        canvas->addBlueBound(n->sceneCollisionBox());
+    }
 
     QList<Node*> updateNodes;
     QList<QRectF> updateBoxes;
@@ -545,7 +549,7 @@ bool Node::checkPotential(QList<Node*> changedNodes, QPointF pt)
 
         // Percolate up
         QRectF next = parent->predictMySceneDraw(changedNodes, alteredDraws);
-        parent->canvas->addRedBound(next);
+        //parent->canvas->addRedBound(next);
 
         changedNodes.clear();
         changedNodes.append(parent);
@@ -715,9 +719,9 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     canvas->clearBounds();
     canvas->clearDots();
 
-    canvas->addRedBound(sceneDrawBox());
-    canvas->addBlackDot(scenePos());
-    canvas->addBlackDot(sceneDrawBox().topLeft());
+    //canvas->addRedBound(sceneCollisionBox());
+    //canvas->addBlackDot(scenePos());
+    //canvas->addBlackDot(sceneDrawBox().topLeft());
 
     if (ghost)
     {
@@ -733,7 +737,7 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
             // Put us in the new
             QRectF sceneDraw = sceneDrawBox();
-            canvas->addGreenBound(sceneDraw);
+            //canvas->addGreenBound(sceneDraw);
             parent = newParent;
             parent->children.append(this);
 
@@ -785,7 +789,7 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             {
                 Node* curr = updateQueue.dequeue();
                 qDebug() << "Adjusting node ";
-                canvas->addBlueBound(curr->sceneDrawBox());
+                //canvas->addBlueBound(curr->sceneDrawBox());
 
                 QPointF nPos = curr->scenePos();
                 nPos.setX(nPos.x() + dx);
@@ -796,7 +800,7 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
                 for (Node* child : curr->children)
                     updateQueue.enqueue(child);
 
-                canvas->addBlackBound(curr->sceneDrawBox());
+                //canvas->addBlackBound(curr->sceneDrawBox());
             }
 
             //tl.setX(tl.x() + dx);
@@ -843,6 +847,8 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if (mouseDown)
     {
+        //canvas->addBlueBound(sceneCollisionBox());
+
         // Adjusted with the mouseOffset, so that we are standardizing
         // calculations against the upper left corner
         qreal dx = mouseOffset.x();
@@ -873,7 +879,7 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             return;
         }
 
-        canvas->clearBounds();
+        //canvas->clearBounds();
 
         // Moved a lil bit at least, so lets check it
         for (QPointF pt : bloom)
@@ -883,7 +889,7 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             {
                 Node* collider = determineNewParent(event->scenePos());
                 newParent = collider;
-                canvas->addBlueBound(collider->sceneDrawBox());
+                //canvas->addBlueBound(collider->sceneDrawBox());
                 for (Node* n : sel)
                     n->moveBy(pt.x(), pt.y());
                 if (sel.size() == 1)

@@ -128,7 +128,7 @@ private:
     void updateAncestors();
 
     // Collision Checking
-    static bool checkPotential(QList<Node*> sel, QPointF pt);
+    bool checkPotential(QList<Node*> sel, QPointF pt);
     QRectF predictMySceneDraw(QList<Node*> altNodes, QList<QRectF> altDraws);
     void setDrawBoxFromPotential(QRectF potDraw);
 
