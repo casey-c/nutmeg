@@ -11,9 +11,9 @@ public:
     Statement();
 
     // Prevent statments from having children of their own
-    Node2* addChildCut(QPointF scenePt) override { return nullptr; }
-    Node2* addChildStatement(QPointF scenePt) override { return nullptr; }
-    Node2* addChildPlaceholder(QPointF scenePt) override { return nullptr; }
+    Node2* addChildCut(QPointF) override { return nullptr; }
+    Node2* addChildStatement(QPointF) override { return nullptr; }
+    Node2* addChildPlaceholder(QPointF) override { return nullptr; }
 
 private:
     void paint(QPainter* painter,

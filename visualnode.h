@@ -24,6 +24,7 @@ private:
     QRectF sceneDrawBox() const;
 
     // Graphics
+    Node2* addChildCut(QPointF scenePt) override;
     void redrawAncestors();
 
     // Mouse Interaction
