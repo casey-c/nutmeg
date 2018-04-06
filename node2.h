@@ -1,6 +1,9 @@
 #ifndef NODE2_H
 #define NODE2_H
 
+#include <QPointF>
+#include "canvas.h"
+
 /*
  * The new node class. This base class ensures that we can maintain the graph
  * tree hierarchy correctly, and reuse the highlight / selection information
@@ -12,19 +15,19 @@ public:
     Node2();
 
     // Add children
-    Node* addChildCut(QPointF scenePt);
-    Node* addChildStatement(QPointF scenePt);
-    Node* addChildPlaceholder(QPointF scenePt);
+    Node2* addChildCut(QPointF scenePt);
+    Node2* addChildStatement(QPointF scenePt);
+    Node2* addChildPlaceholder(QPointF scenePt);
 
     // Highlight
     void setHighlight();
     void removeHighlight();
 
     // Tree relations
-    Node* getParent() const { return parent; }
-    Node* getRightSibling();
-    Node* getLeftSibling();
-    Node* getFirstChild();
+    Node2* getParent() const { return parent; }
+    Node2* getRightSibling();
+    Node2* getLeftSibling();
+    Node2* getFirstChild();
 
     // Selection
     void toggleSelection();
@@ -39,7 +42,7 @@ private:
     int myID;
 
     Canvas* canvas;
-    Node* parent;
+    Node2* parent;
     QList<Node*> children;
 
     bool highlighted, selected;

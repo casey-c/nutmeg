@@ -4,6 +4,7 @@
 #include <QGraphicsObject>
 #include <QRadialGradient>
 #include <QGraphicsDropShadowEffect>
+#include <QFont>
 
 class Canvas;
 
