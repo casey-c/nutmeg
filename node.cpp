@@ -1286,6 +1286,7 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
                 qDebug() << "Parent changed size";
                 growOkay = false;
                 growSize = (maxX - minX) * (maxY - minY);
+                QRectF toCollision(QRectF draw) const;
                 //canvas->addRedBound(potDraw);
             }
             else

@@ -27,12 +27,22 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     node.cpp \
-    canvas.cpp
+    canvas.cpp \
+    root.cpp \
+    statement.cpp \
+    cut.cpp \
+    node2.cpp \
+    visualnode.cpp
 
 HEADERS += \
         mainwindow.h \
     node.h \
-    canvas.h
+    canvas.h \
+    root.h \
+    statement.h \
+    cut.h \
+    node2.h \
+    visualnode.h
 
 FORMS += \
         mainwindow.ui
