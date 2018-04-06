@@ -123,7 +123,7 @@ private:
     // Sizing
     QRectF sceneCollisionBox() const;
     QRectF localCollisionBox() const;
-    QRectF sceneDrawBox(qreal xOffset = 0, qreal yOffset = 0) const;
+    QRectF sceneDrawBox() const;
 
     void updateAncestors();
 

@@ -15,7 +15,6 @@
 
 #define EMPTY_CUT_SIZE (4 * GRID_SPACING)
 #define STATEMENT_SIZE (2 * GRID_SPACING)
-#define BIG_NUMBER 999999999
 
 #define Z_NORMAL 0
 #define Z_RAISED 10
@@ -412,9 +411,9 @@ QRectF Node::localCollisionBox() const
 /*
  * Converts the drawBox local to a drawBox scene
  */
-QRectF Node::sceneDrawBox(qreal xOffset, qreal yOffset) const
+QRectF Node::sceneDrawBox() const
 {
-    return mapRectToScene(drawBox.translated(xOffset, yOffset));
+    return mapRectToScene(drawBox);
 }
 
 /*
@@ -481,7 +480,7 @@ bool Node::checkPotential(QList<Node*> changedNodes, QPointF pt)
     QList<QRectF> drawBoxes; // scene mapped
 
     for (Node* n : changedNodes)
-        drawBoxes.append(n->sceneDrawBox(pt.x(), pt.y()));
+        drawBoxes.append(n->sceneDrawBox().translated(pt.x(), pt.y()));
 
     QList<Node*> updateNodes;
     QList<QRectF> updateBoxes;
@@ -609,8 +608,8 @@ QRectF Node::predictMySceneDraw(QList<Node*> altNodes, QList<QRectF> altDraws)
 
 
     qreal minX, minY, maxX, maxY;
-    minX = minY = BIG_NUMBER;
-    maxX = maxY = -BIG_NUMBER;
+    minX = minY = INFINITY;
+    maxX = maxY = -INFINITY;
 
     for (Node* child : children)
     {
