@@ -179,6 +179,7 @@ Node::~Node()
         delete child;
 }
 
+#if 0
 Node* Node::addChildCut(QPointF pt)
 {
     QList<QPointF> bloom = constructAddBloom(pt);
@@ -195,7 +196,10 @@ Node* Node::addChildCut(QPointF pt)
 
     return newChild;
 }
+#endif
 
+
+#if 0
 Node* Node::addChildStatement(QPointF pt, QString t)
 {
     QList<QPointF> bloom = constructAddBloom(pt);
@@ -212,6 +216,7 @@ Node* Node::addChildStatement(QPointF pt, QString t)
     updateAncestors();
     return newChild;
 }
+#endif
 
 
 /////////////////
@@ -1132,6 +1137,7 @@ QList<QPointF> constructBloom(QPointF scenePos, QPointF sceneTarget)
  * TODO: come up with a smarter spiraling out algorithm so everything is cleaner
  * and not hardcoded
  */
+#if 0
 QList<QPointF> constructAddBloom(const QPointF &scenePos)
 {
     QPointF snapped = snapPoint(scenePos);
@@ -1189,7 +1195,9 @@ QList<QPointF> constructAddBloom(const QPointF &scenePos)
 
     return bloom;
 }
+#endif
 
+#if 0
 /*
  * Tries to find a valid point for the add function. Bloom should be non-empty.
  *
@@ -1342,6 +1350,7 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
     // Nothing worked, so return snapped
     return bloom.first();
 }
+#endif
 
 
 
