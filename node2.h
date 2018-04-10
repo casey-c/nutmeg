@@ -15,9 +15,13 @@ public:
     Node2();
 
     // Add children
-    virtual Node2* addChildCut(QPointF scenePt);
-    virtual Node2* addChildStatement(QPointF scenePt);
-    virtual Node2* addChildPlaceholder(QPointF scenePt);
+    //virtual Node2* addChildCut(QPointF scenePt);
+    //virtual Node2* addChildStatement(QPointF scenePt);
+    //virtual Node2* addChildPlaceholder(QPointF scenePt);
+
+    void adoptChild(Node2* babyboy);
+    void moveMe(const QPointF& target);
+    void updateTree();
 
     // Highlight
     void setHighlight();
