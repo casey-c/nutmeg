@@ -7,7 +7,7 @@
 class Statement : public VisualNode
 {
 public:
-    Statement();
+    Statement(QString s);
 
     // Prevent statments from having children of their own
     //Node2* addChildCut(QPointF scenePt) override;

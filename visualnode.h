@@ -42,6 +42,8 @@ private:
 
     // TODO: Prediction
     QPointF findPoint(const QList<QPointF> &bloom, qreal w, qreal h);
+
+    QRectF boundingRect() const override;
 };
 
 #endif // VISUALNODE_H

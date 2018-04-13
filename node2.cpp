@@ -8,6 +8,14 @@ bool Node2::canHaveKids() {
     return fertile;
 }
 
+void Node2::adoptChild(Node2 *babyboy) {
+
+}
+
+void Node2::updateTree() {
+
+}
+
 QPointF snapPoint(const QPointF &pt)
 {
     int x = pt.x() - (GRID_SPACING / 2);

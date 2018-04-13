@@ -3,7 +3,7 @@
 
 #include "visualnode.h"
 
-class Cut : VisualNode
+class Cut : public VisualNode
 {
 public:
     Cut();

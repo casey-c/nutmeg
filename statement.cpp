@@ -1,6 +1,6 @@
 #include "statement.h"
 
-Statement::Statement()
+Statement::Statement(QString s)
 {
     fertile = false;
 }
