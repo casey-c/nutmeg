@@ -4,6 +4,10 @@
 //#include "cut.h"
 //#include "statement.h"
 
+bool Node2::canHaveKids() {
+    return fertile;
+}
+
 QPointF snapPoint(const QPointF &pt)
 {
     int x = pt.x() - (GRID_SPACING / 2);
@@ -38,8 +42,8 @@ QPointF snapPoint(const QPointF &pt)
 }
 
 
-Node2::Node2()
-{
+Node2::Node2() :
+    fertile(true) {
 
 }
 

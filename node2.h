@@ -41,6 +41,11 @@ public:
 
     static void setSelectionFromBox(Node* root, QRectF selBox);
 
+    bool canHaveKids();
+
+protected:
+    bool fertile;
+
 private:
     static int globalID;
     int myID;

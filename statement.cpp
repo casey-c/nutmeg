@@ -2,7 +2,7 @@
 
 Statement::Statement()
 {
-
+    fertile = false;
 }
 
 //Node2* Statement::addChildCut(QPointF scenePt) { return nullptr; }
