@@ -1,12 +1,49 @@
 #include "node2.h"
-#include "cut.h"
-#include "statement.h"
+#include "constants.h"
+
+//#include "cut.h"
+//#include "statement.h"
+
+QPointF snapPoint(const QPointF &pt)
+{
+    int x = pt.x() - (GRID_SPACING / 2);
+    int y = pt.y() - (GRID_SPACING / 2);
+
+    // Workaround for negative points
+    bool negX = false;
+    bool negY = false;
+
+    if (x < 0)
+    {
+        negX = true;
+        x = -x;
+    }
+    if (y < 0)
+    {
+        negY = true;
+        y = -y;
+    }
+
+    // Perform the snap
+    x = ((x + GRID_SPACING / 2) / GRID_SPACING) * GRID_SPACING;
+    y = ((y + GRID_SPACING / 2) / GRID_SPACING) * GRID_SPACING;
+
+    // Revert negation
+    if (negX)
+        x = -x;
+    if (negY)
+        y = -y;
+
+    return QPointF(x, y);
+}
+
 
 Node2::Node2()
 {
 
 }
 
+#if 0
 Node2* Node2::addChildCut(QPointF scenePt) {
     // Try to find a suitable point using a predictor algorithm
     //QList<QPointF> bloom = constructAddBloom(scenePt);
@@ -39,6 +76,7 @@ Node2* Node2::addChildStatement(QPointF scenePt, QString letter) {
 
     return statement;
 }
+#endif
 
 //Node2* Node2::addChildPlaceholder(QPointF scenePt){
     //return nullptr;
@@ -157,6 +195,7 @@ QList<QPointF> constructAddBloom(const QPointF &scenePos)
  * node's width and height are the params, and (this) is the parent of such a
  * node.
  */
+#if 0
 QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isStatement)
 {
     Q_UNUSED(isStatement)
@@ -289,3 +328,5 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
     // Nothing worked, so return snapped
     return bloom.first();
 }
+
+#endif

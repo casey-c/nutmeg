@@ -1,7 +1,6 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include "node2.h"
 #include "visualnode.h"
 #include <QPointF>
 
@@ -11,9 +10,9 @@ public:
     Statement();
 
     // Prevent statments from having children of their own
-    Node2* addChildCut(QPointF scenePt) override;
-    Node2* addChildStatement(QPointF scenePt) override;
-    Node2* addChildPlaceholder(QPointF scenePt) override;
+    //Node2* addChildCut(QPointF scenePt) override;
+    //Node2* addChildStatement(QPointF scenePt) override;
+    //Node2* addChildPlaceholder(QPointF scenePt) override;
 
 private:
     void paint(QPainter* painter,

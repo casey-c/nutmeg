@@ -32,7 +32,8 @@ SOURCES += \
     statement.cpp \
     cut.cpp \
     node2.cpp \
-    visualnode.cpp
+    visualnode.cpp \
+    nodefactory.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,9 @@ HEADERS += \
     statement.h \
     cut.h \
     node2.h \
-    visualnode.h
+    visualnode.h \
+    nodefactory.h \
+    constants.h
 
 FORMS += \
         mainwindow.ui

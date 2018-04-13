@@ -969,6 +969,7 @@ void Node::lowerAllAncestors()
 /*
  * Return the closest point on the snapping grid
  */
+#if 0
 QPointF snapPoint(const QPointF &pt)
 {
     int x = pt.x() - (GRID_SPACING / 2);
@@ -1001,6 +1002,7 @@ QPointF snapPoint(const QPointF &pt)
 
     return QPointF(x, y);
 }
+#endif
 
 /*
  * Return the distance between two points

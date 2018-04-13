@@ -197,6 +197,7 @@ void Canvas::setHighlight(Node* node)
 
 void Canvas::addCut()
 {
+#if 0
   Node* n = highlighted->addChildCut(lastMousePos);
   if (n == nullptr)
     return;
@@ -205,10 +206,12 @@ void Canvas::addCut()
     scene->addItem(n);
 
   setHighlight(n);
+#endif
 }
 
 void Canvas::addStatement(QString s)
 {
+#if 0
   Node* n = highlighted->addChildStatement(lastMousePos, s);
   if (n == nullptr)
     return;
@@ -217,10 +220,12 @@ void Canvas::addStatement(QString s)
     scene->addItem(n);
 
   setHighlight(n);
+#endif
 }
 
 void Canvas::addPlaceholder()
 {
+#if 0
   Node* n = highlighted->addChildStatement(lastMousePos, "");
   if (n == nullptr)
     return;
@@ -229,6 +234,7 @@ void Canvas::addPlaceholder()
     scene->addItem(n);
 
   setHighlight(n);
+#endif
 }
 
 
