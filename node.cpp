@@ -1,3 +1,4 @@
+#if 0
 #include "canvas.h"
 #include "node.h"
 
@@ -1077,6 +1078,7 @@ void printMinMax(qreal minX, qreal minY, qreal maxX, qreal maxY)
  * manipulate multiple items if they all work off deltas (the new relBloom list
  * that's returned).
  */
+#if 0
 QList<QPointF> constructBloom(QPointF scenePos, QPointF sceneTarget)
 {
     QPointF snapped = snapPoint(sceneTarget);
@@ -1104,6 +1106,7 @@ QList<QPointF> constructBloom(QPointF scenePos, QPointF sceneTarget)
 
     return relBloom;
 }
+#endif
 
 /*
  * A second bloom. More naive (no distance checking or sorting), but adds a few
@@ -1393,3 +1396,5 @@ QPointF Node::findPoint(const QList<QPointF> &bloom, qreal w, qreal h, bool isSt
 
 
 
+
+#endif

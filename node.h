@@ -6,6 +6,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QFont>
 
+#if 0
 class Canvas;
 
 enum NodeType
@@ -141,4 +142,5 @@ private:
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
+#endif
 #endif // NODE_H

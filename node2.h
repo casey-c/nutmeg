@@ -7,21 +7,20 @@
 /*
  * The new node class. This base class ensures that we can maintain the graph
  * tree hierarchy correctly, and reuse the highlight / selection information
- * for all subclasses (root, statement, cut)
+ * for all subclasses (root, statement, cut).
+ *
+ * Creation of nodes is handled by the static methods of NodeFactory. This class
+ * contains some basic boilerplate functions for updating that the factory and
+ * VisualNodes can hook into for redrawing.
  */
 class Node2
 {
 public:
     Node2();
 
-    // Add children
-    //virtual Node2* addChildCut(QPointF scenePt);
-    //virtual Node2* addChildStatement(QPointF scenePt);
-    //virtual Node2* addChildPlaceholder(QPointF scenePt);
-
-    void adoptChild(Node2* babyboy);
-    void moveMe(const QPointF& target);
-    void updateTree();
+    void adoptChild(Node2* child);
+    //void moveMe(const QPointF& target); // TODO: put in VisualNode instead
+    virtual void updateTree() {}
 
     // Highlight
     void setHighlight();
@@ -41,7 +40,7 @@ public:
 
     static void setSelectionFromBox(Node* root, QRectF selBox);
 
-    bool canHaveKids();
+    bool canHaveKids() { return fertile; }
 
 protected:
     bool fertile;
@@ -52,7 +51,7 @@ private:
 
     Canvas* canvas;
     Node2* parent;
-    QList<Node*> children;
+    QList<Node2*> children;
 
     bool highlighted, selected;
 };

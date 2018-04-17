@@ -1,23 +1,39 @@
 #include "node2.h"
 #include "constants.h"
 
-//#include "cut.h"
-//#include "statement.h"
+#include <QList>
+#include <QDebug>
 
-bool Node2::canHaveKids() {
-    return fertile;
+/*
+ * Constructor for an arbitrary node
+ */
+Node2::Node2() : fertile(true) { }
+
+/*
+ * Adds the newest child to my children list and calls the recursive update
+ * to fix the tree.
+ */
+void Node2::adoptChild(Node2* child) {
+    if (!fertile){
+      qDebug() << "WARNING: node"
+               << myID
+               << "is attempting to adopt a child it cannot have";
+    }
+
+    children.append(child);
+    child->updateTree();
 }
 
-void Node2::adoptChild(Node2 *babyboy) {
-
-}
-
-void Node2::updateTree() {
-
-}
-
-QPointF snapPoint(const QPointF &pt)
-{
+// TODO: move to VisualNode
+#if 0
+/*
+ * Helper function:
+ * Maps given scene coordinates onto the grid.
+ *
+ * QPointF pt: (scene coords) with arbitrary (x,y)
+ * Returns: pt (x,y) in scene coords where x and y are multiples of GRID_SPACING
+ */
+QPointF snapPoint(const QPointF &pt) {
     int x = pt.x() - (GRID_SPACING / 2);
     int y = pt.y() - (GRID_SPACING / 2);
 
@@ -25,13 +41,11 @@ QPointF snapPoint(const QPointF &pt)
     bool negX = false;
     bool negY = false;
 
-    if (x < 0)
-    {
+    if (x < 0) {
         negX = true;
         x = -x;
     }
-    if (y < 0)
-    {
+    if (y < 0) {
         negY = true;
         y = -y;
     }
@@ -49,11 +63,8 @@ QPointF snapPoint(const QPointF &pt)
     return QPointF(x, y);
 }
 
+#endif
 
-Node2::Node2() :
-    fertile(true) {
-
-}
 
 #if 0
 Node2* Node2::addChildCut(QPointF scenePt) {
@@ -94,6 +105,8 @@ Node2* Node2::addChildStatement(QPointF scenePt, QString letter) {
     //return nullptr;
 //}
 
+// TODO: move to VisualNode
+#if 0
 /*
  * A second bloom. More naive (no distance checking or sorting), but adds a few
  * more points. Additionally, the returned QList will always be size 9, never
@@ -185,6 +198,7 @@ QList<QPointF> constructAddBloom(const QPointF &scenePos)
 
     return bloom;
 }
+#endif
 
 /// TODO: integrate with the new Node2 class
 /*
