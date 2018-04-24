@@ -14,6 +14,8 @@ class VisualNode : public Node, public QGraphicsObject
 public:
     VisualNode();
 
+    void moveMeToScene(QPointF scenePt);
+
 private:
     QRectF drawBox;
     bool mouseDown;
