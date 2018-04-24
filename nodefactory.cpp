@@ -7,7 +7,7 @@ NodeFactory::NodeFactory() {
 
 }
 
-Node* NodeFactory::makeRoot() {
+Node* NodeFactory::makeRoot(Canvas* canvas) {
     return new Root(canvas);
 }
 

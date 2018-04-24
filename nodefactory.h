@@ -11,7 +11,7 @@ class NodeFactory
 public:
     NodeFactory();
 
-    static Node* makeRoot();
+    static Node* makeRoot(Canvas* canvas);
 
     static Node* addChildCut(Node* targetParent);
     static Node* addChildStatement(Node* targetParent, QString s);

@@ -39,12 +39,12 @@ public:
 
 protected:
     bool fertile;
+    Canvas* canvas;
 
 private:
     static int globalID;
     int myID;
 
-    Canvas* canvas;
     Node* parent;
     QList<Node*> children;
 

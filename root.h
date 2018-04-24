@@ -8,7 +8,7 @@
 class Root : public Node
 {
 public:
-    Root(Canvas canvas);
+    Root(Canvas* canvas);
 };
 
 #endif // ROOT_H
