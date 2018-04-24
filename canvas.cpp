@@ -3,6 +3,8 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QGraphicsRectItem>
+#include "nodefactory.h"
+#include "visualnode.h"
 
 #include "nodefactory.h"
 
@@ -25,8 +27,8 @@ Canvas::Canvas(QWidget* parent) :
   setTransformationAnchor(AnchorUnderMouse);
   setMinimumSize(400, 400);
 
-  //root = Node::makeRoot(this);
-  //highlighted = root;
+    root = NodeFactory::makeRoot(this);
+    highlighted = root;
 
   // Selection box
   selBox = scene->addRect(QRectF(QPointF(0,0), QSizeF(0,0)));
@@ -204,30 +206,35 @@ void Canvas::setHighlight(Node* node)
 
 void Canvas::addCut()
 {
-#if 0
-  Node* n = highlighted->addChildCut(lastMousePos);
+  Node* m = NodeFactory::addChildCut(highlighted);
+
+  VisualNode* n = dynamic_cast<VisualNode*>(m);
+
   if (n == nullptr)
     return;
+
+  n->moveMeToScenePos(lastMousePos);
 
   if ( n->getParent() == root )
     scene->addItem(n);
 
   setHighlight(n);
-#endif
 }
 
 void Canvas::addStatement(QString s)
 {
-#if 0
-  Node* n = highlighted->addChildStatement(lastMousePos, s);
+  Node* m = NodeFactory::addChildStatement(highlighted, s);
+  VisualNode* n = dynamic_cast<VisualNode*>(m);
+
   if (n == nullptr)
     return;
+
+  n->moveMeToScenePos(lastMousePos);
 
   if (n->getParent() == root)
     scene->addItem(n);
 
   setHighlight(n);
-#endif
 }
 
 void Canvas::addPlaceholder()

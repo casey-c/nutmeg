@@ -10,6 +10,8 @@ VisualNode::VisualNode()
 
 }
 
+void VisualNode::moveMeToScenePos(QPointF pos){}
+
 void VisualNode::redrawAncestors() {}
 
 void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {}

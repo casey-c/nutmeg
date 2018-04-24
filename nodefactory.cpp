@@ -9,7 +9,6 @@ NodeFactory::NodeFactory() {
 
 Node* NodeFactory::makeRoot() {
     return new Root(canvas);
-    //return nullptr;
 }
 
 Node* NodeFactory::addChildCut(Node* targetParent) {
