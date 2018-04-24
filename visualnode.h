@@ -17,10 +17,17 @@ public:
 
     void moveMeToScenePos(QPointF scenePt);
 
-private:
+protected:
     QRectF drawBox;
+
     bool mouseDown;
 
+    QRadialGradient gradHighlighted;
+    QRadialGradient gradClicked;
+    QRadialGradient gradSelected;
+    QRadialGradient gradDefault;
+
+private:
     // Boxes
     QRectF sceneCollisionBox() const;
     QRectF localCollisionBox() const;
@@ -31,10 +38,6 @@ private:
     void redrawAncestors();
 
     // TODO: ColorPalette
-    QRadialGradient gradDefault;
-    QRadialGradient gradHighlighted;
-    QRadialGradient gradClicked;
-    QRadialGradient gradSelected;
     QGraphicsDropShadowEffect* shadow;
 
     // Selection

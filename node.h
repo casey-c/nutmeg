@@ -40,6 +40,7 @@ public:
 protected:
     bool fertile;
     Canvas* canvas;
+    bool highlighted, selected;
 
 private:
     static int globalID;
@@ -47,8 +48,6 @@ private:
 
     Node* parent;
     QList<Node*> children;
-
-    bool highlighted, selected;
 };
 
 #endif // NODE_H

@@ -2,5 +2,6 @@
 #define CONSTANTS_H
 
 #define GRID_SPACING 16
+#define BORDER_RADIUS 10
 
 #endif // CONSTANTS_H
