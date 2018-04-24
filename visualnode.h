@@ -14,7 +14,7 @@ class VisualNode : public Node, public QGraphicsObject
 public:
     VisualNode();
 
-    void moveMeToScene(QPointF scenePt);
+    void moveMeToScenePos(QPointF scenePt);
 
 private:
     QRectF drawBox;
@@ -28,6 +28,12 @@ private:
     // Graphics
     //Node2* addChildCut(QPointF scenePt) override;
     void redrawAncestors();
+
+    // Selection
+    void toggleSelection();
+    void setSelect();
+    void setSelectAllKids();
+    void removeSelect();
 
     // Mouse Interaction
     void mousePressEvent(QGraphicsSceneMouseEvent* evt) override;

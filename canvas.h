@@ -22,16 +22,16 @@ public:
     void clearDots();
     void addBlackDot(QPointF pt);
 
-    void selectNode(Node* n);
-    void deselectNode(Node* n);
-    void clearSelection();
+    //void selectNode(Node* n);
+    //void deselectNode(Node* n);
+    //void clearSelection();
 
-    QList<Node*> getSelectedNodes();
-    QList<Node*> selectionIncluding(Node* n);
-    bool hasAnySelectedNodes();
+    //QList<Node*> getSelectedNodes();
+    //QList<Node*> selectionIncluding(Node* n);
+    //bool hasAnySelectedNodes();
 
     void removeFromScene(Node* n);
-    void deleteSelection();
+    //void deleteSelection();
 
     Node* getRoot() { return root; }
 private:
@@ -76,7 +76,7 @@ private:
     void highlightParent();
 
     // Selection
-    QList<Node*> selectedNodes;
+    //QList<Node*> selectedNodes;
 
     // Debug
     bool showBounds;

@@ -8,8 +8,8 @@ NodeFactory::NodeFactory() {
 }
 
 Node* NodeFactory::makeRoot() {
-    //return new Root(canvas);
-    return nullptr;
+    return new Root(canvas);
+    //return nullptr;
 }
 
 Node* NodeFactory::addChildCut(Node* targetParent) {
@@ -18,7 +18,7 @@ Node* NodeFactory::addChildCut(Node* targetParent) {
 
     Node* cut = new Cut();
     targetParent->adoptChild(cut);
-    targetParent->updateTree();
+    //targetParent->updateTree();
 
     return cut;
 }
@@ -29,7 +29,7 @@ Node* NodeFactory::addChildStatement(Node* targetParent, QString s) {
 
     Node* statement = new Statement(s);
     targetParent->adoptChild(statement);
-    targetParent->updateTree();
+    //targetParent->updateTree();
 
     return statement;
 }

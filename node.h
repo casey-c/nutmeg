@@ -32,11 +32,6 @@ public:
     Node* getLeftSibling();
     Node* getFirstChild();
 
-    // Selection
-    void toggleSelection();
-    void setSelect();
-    void setSelectAllKids();
-    void removeSelect();
 
     static void setSelectionFromBox(Node* root, QRectF selBox);
 

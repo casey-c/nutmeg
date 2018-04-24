@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QGraphicsRectItem>
 
+#include "nodefactory.h"
+
 #define SEL_BOX_Z 10
 
 Canvas::Canvas(QWidget* parent) :
@@ -12,113 +14,113 @@ Canvas::Canvas(QWidget* parent) :
     noMouseMovement(false),
     showBounds(true)
 {
-    scene = new QGraphicsScene(this);
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(-200, -200, 400, 400);
-    setScene(scene);
+  scene = new QGraphicsScene(this);
+  scene->setItemIndexMethod(QGraphicsScene::NoIndex);
+  scene->setSceneRect(-200, -200, 400, 400);
+  setScene(scene);
 
-    setCacheMode(CacheBackground);
-    setViewportUpdateMode(BoundingRectViewportUpdate);
-    setRenderHint(QPainter::Antialiasing);
-    setTransformationAnchor(AnchorUnderMouse);
-    setMinimumSize(400, 400);
+  setCacheMode(CacheBackground);
+  setViewportUpdateMode(BoundingRectViewportUpdate);
+  setRenderHint(QPainter::Antialiasing);
+  setTransformationAnchor(AnchorUnderMouse);
+  setMinimumSize(400, 400);
 
-    //root = Node::makeRoot(this);
-    //highlighted = root;
+  //root = Node::makeRoot(this);
+  //highlighted = root;
 
-    // Selection box
-    selBox = scene->addRect(QRectF(QPointF(0,0), QSizeF(0,0)));
-    selBox->setZValue(SEL_BOX_Z);
-    selBox->setVisible(false);
+  // Selection box
+  selBox = scene->addRect(QRectF(QPointF(0,0), QSizeF(0,0)));
+  selBox->setZValue(SEL_BOX_Z);
+  selBox->setVisible(false);
 }
 
 void Canvas::drawBackground(QPainter* painter, const QRectF &rect)
 {
-    Q_UNUSED(painter)
-    Q_UNUSED(rect)
-    //QRectF sceneRect = this->sceneRect();
+  Q_UNUSED(painter)
+  Q_UNUSED(rect)
+  //QRectF sceneRect = this->sceneRect();
 
-    //QLinearGradient gradient(sceneRect.topLeft(),
-                             //sceneRect.bottomRight());
-    //gradient.setColorAt(0, Qt::white);
-    //gradient.setColorAt(1, QColor(Qt::lightGray).lighter(150));
+  //QLinearGradient gradient(sceneRect.topLeft(),
+  //sceneRect.bottomRight());
+  //gradient.setColorAt(0, Qt::white);
+  //gradient.setColorAt(1, QColor(Qt::lightGray).lighter(150));
 
-    //painter->fillRect(rect.intersected(sceneRect),
-                      //gradient);
+  //painter->fillRect(rect.intersected(sceneRect),
+  //gradient);
 
-    //painter->setBrush(Qt::NoBrush);
-    //painter->drawRect(sceneRect);
+  //painter->setBrush(Qt::NoBrush);
+  //painter->drawRect(sceneRect);
 }
 
 void Canvas::keyPressEvent(QKeyEvent* event)
 {
-    QGraphicsView::keyPressEvent(event);
+  QGraphicsView::keyPressEvent(event);
 
-    if (event->modifiers() & Qt::ShiftModifier)
+  if (event->modifiers() & Qt::ShiftModifier)
+  {
+    switch(event->key())
     {
-        switch(event->key())
-        {
-        case Qt::Key_X:
-          addCut();
-          break;
-        }
+    case Qt::Key_X:
+      addCut();
+      break;
     }
-    else if (event->modifiers() & Qt::ControlModifier)
+  }
+  else if (event->modifiers() & Qt::ControlModifier)
+  {
+    switch(event->key())
     {
-        switch(event->key())
-        {
-        case Qt::Key_A:
-          //highlighted->selectAllKids();
-          break;
-        case Qt::Key_B:
-          {
-            showBounds = !showBounds;
-            qDebug() << "toggle showBounds to" << showBounds;
-            if (!showBounds)
-              clearBounds();
-          }
-          break;
-        case Qt::Key_D:
-            clearSelection();
-            break;
-        }
+    case Qt::Key_A:
+      //highlighted->selectAllKids();
+      break;
+    case Qt::Key_B:
+    {
+      showBounds = !showBounds;
+      qDebug() << "toggle showBounds to" << showBounds;
+      if (!showBounds)
+        clearBounds();
     }
+      break;
+    case Qt::Key_D:
+      //clearSelection();
+      break;
+    }
+  }
 
-    else
+  else
+  {
+    switch(event->key())
     {
-      switch(event->key())
-      {
-      case Qt::Key_A: addStatement("A"); break;
-      case Qt::Key_B: addStatement("B"); break;
-      case Qt::Key_C: addStatement("C"); break;
-      case Qt::Key_D: addStatement("D"); break;
-      case Qt::Key_E: addStatement("E"); break;
-      case Qt::Key_F: addStatement("F"); break;
-      case Qt::Key_G: addStatement("G"); break;
-      case Qt::Key_H: addStatement("H"); break;
-      case Qt::Key_I: addStatement("I"); break;
-      case Qt::Key_J: addStatement("J"); break;
-      case Qt::Key_K: addStatement("K"); break;
-      case Qt::Key_L: addStatement("L"); break;
-      case Qt::Key_M: addStatement("M"); break;
-      case Qt::Key_N: addStatement("N"); break;
-      case Qt::Key_O: addStatement("O"); break;
-      case Qt::Key_P: addStatement("P"); break;
-      case Qt::Key_Q: addStatement("Q"); break;
-      case Qt::Key_R: addStatement("R"); break;
-      case Qt::Key_S: addStatement("S"); break;
-      case Qt::Key_T: addStatement("T"); break;
-      case Qt::Key_U: addStatement("U"); break;
-      case Qt::Key_V: addStatement("V"); break;
-      case Qt::Key_W: addStatement("W"); break;
-      case Qt::Key_X: addStatement("X"); break;
-      case Qt::Key_Y: addStatement("Y"); break;
-      case Qt::Key_Z: addStatement("Z"); break;
-      case Qt::Key_4:
-        addPlaceholder();
-        break;
-      }
+    case Qt::Key_A: addStatement("A"); break;
+    case Qt::Key_B: addStatement("B"); break;
+    case Qt::Key_C: addStatement("C"); break;
+    case Qt::Key_D: addStatement("D"); break;
+    case Qt::Key_E: addStatement("E"); break;
+    case Qt::Key_F: addStatement("F"); break;
+    case Qt::Key_G: addStatement("G"); break;
+    case Qt::Key_H: addStatement("H"); break;
+    case Qt::Key_I: addStatement("I"); break;
+    case Qt::Key_J: addStatement("J"); break;
+    case Qt::Key_K: addStatement("K"); break;
+    case Qt::Key_L: addStatement("L"); break;
+    case Qt::Key_M: addStatement("M"); break;
+    case Qt::Key_N: addStatement("N"); break;
+    case Qt::Key_O: addStatement("O"); break;
+    case Qt::Key_P: addStatement("P"); break;
+    case Qt::Key_Q: addStatement("Q"); break;
+    case Qt::Key_R: addStatement("R"); break;
+    case Qt::Key_S: addStatement("S"); break;
+    case Qt::Key_T: addStatement("T"); break;
+    case Qt::Key_U: addStatement("U"); break;
+    case Qt::Key_V: addStatement("V"); break;
+    case Qt::Key_W: addStatement("W"); break;
+    case Qt::Key_X: addStatement("X"); break;
+    case Qt::Key_Y: addStatement("Y"); break;
+    case Qt::Key_Z: addStatement("Z"); break;
+    case Qt::Key_4:
+      addPlaceholder();
+      break;
     }
+  }
 }
 
 void Canvas::mouseMoveEvent(QMouseEvent* event)
@@ -158,8 +160,8 @@ void Canvas::mousePressEvent(QMouseEvent* event)
   }
   else
   {
-    if (highlighted == root)
-      clearSelection();
+    //if (highlighted == root)
+      //clearSelection();
 
     QGraphicsView::mousePressEvent(event);
   }
@@ -304,19 +306,17 @@ void Canvas::addGreenBound(QRectF rect)
 
 
 // Selection
+/*
 void Canvas::clearSelection()
 {
-#if 0
   for (Node* n : selectedNodes)
-    n->deselectThis();
+    n->removeSelect();
 
   selectedNodes.clear();
-#endif
 }
 
 void Canvas::selectNode(Node* n)
 {
-#if 0
   // Make sure we don't add the same node twice
   if (selectedNodes.contains(n))
     return;
@@ -329,15 +329,14 @@ void Canvas::selectNode(Node* n)
       clearSelection();
   }
 
-  n->selectThis();
+  n->setSelect();
   selectedNodes.append(n);
-#endif
 }
 
 void Canvas::deselectNode(Node* n)
 {
   selectedNodes.removeOne(n);
-  //n->deselectThis();
+  n->removeSelect();
 }
 
 QList<Node*> Canvas::getSelectedNodes()
@@ -359,6 +358,7 @@ bool Canvas::hasAnySelectedNodes()
 {
   return !selectedNodes.empty();
 }
+*/
 
 
 void Canvas::removeFromScene(Node* n)
@@ -373,6 +373,7 @@ void Canvas::removeFromScene(Node* n)
 #endif
 }
 
+/*
 void Canvas::deleteSelection()
 {
 #if 0
@@ -391,3 +392,4 @@ void Canvas::deleteSelection()
   selectedNodes.clear();
 #endif
 }
+*/
