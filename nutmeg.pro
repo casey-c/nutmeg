@@ -26,26 +26,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    node.cpp \
     canvas.cpp \
     root.cpp \
     statement.cpp \
     cut.cpp \
-    node2.cpp \
     visualnode.cpp \
-    nodefactory.cpp
+    nodefactory.cpp \
+    oldnode.cpp \
+    node.cpp
 
 HEADERS += \
         mainwindow.h \
-    node.h \
     canvas.h \
     root.h \
     statement.h \
     cut.h \
-    node2.h \
     visualnode.h \
     nodefactory.h \
-    constants.h
+    constants.h \
+    oldnode.h \
+    node.h
 
 FORMS += \
         mainwindow.ui

@@ -7,27 +7,27 @@ NodeFactory::NodeFactory() {
 
 }
 
-Node2* NodeFactory::makeRoot() {
+Node* NodeFactory::makeRoot() {
     //return new Root(canvas);
     return nullptr;
 }
 
-Node2* NodeFactory::addChildCut(Node2* targetParent) {
+Node* NodeFactory::addChildCut(Node* targetParent) {
     if (!targetParent->canHaveKids())
       return nullptr;
 
-    Node2* cut = new Cut();
+    Node* cut = new Cut();
     targetParent->adoptChild(cut);
     targetParent->updateTree();
 
     return cut;
 }
 
-Node2* NodeFactory::addChildStatement(Node2* targetParent, QString s) {
+Node* NodeFactory::addChildStatement(Node* targetParent, QString s) {
     if (!targetParent->canHaveKids())
       return nullptr;
 
-    Node2* statement = new Statement(s);
+    Node* statement = new Statement(s);
     targetParent->adoptChild(statement);
     targetParent->updateTree();
 

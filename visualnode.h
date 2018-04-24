@@ -2,14 +2,14 @@
 #define VISUALNODE_H
 
 #include <QGraphicsObject>
-#include "node2.h"
+#include "node.h"
 
 /*
  * This is the base class for any nodes that need to be drawn / interacted with
  * i.e. statements and cuts. This enables us to reuse a lot of the collision
  * and mouse control logic but prevent root nodes from using any of that info
  */
-class VisualNode : public Node2, public QGraphicsObject
+class VisualNode : public Node, public QGraphicsObject
 {
 public:
     VisualNode();

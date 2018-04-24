@@ -1,9 +1,9 @@
 #ifndef ROOT_H
 #define ROOT_H
 
-#include "node2.h"
+#include "node.h"
 
-class Root : public Node2
+class Root : public Node
 {
 public:
     Root();
