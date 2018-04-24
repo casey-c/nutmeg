@@ -206,6 +206,7 @@ void Canvas::setHighlight(Node* node)
 
 void Canvas::addCut()
 {
+    qDebug() << "attempting to add cut";
   Node* m = NodeFactory::addChildCut(highlighted);
 
   VisualNode* n = dynamic_cast<VisualNode*>(m);

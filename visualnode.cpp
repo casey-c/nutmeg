@@ -1,13 +1,48 @@
 #include "visualnode.h"
 
 #include "constants.h"
+#include "qmath.h"
 
 QPointF snapPoint(const QPointF &pt);
+qreal dist(const QPointF &a, const QPointF &b);
 
 
 VisualNode::VisualNode()
 {
+    setFlag(ItemSendsGeometryChanges);
+    setCacheMode(DeviceCoordinateCache);
+    setAcceptHoverEvents(true);
 
+    shadow = new QGraphicsDropShadowEffect(this);
+    shadow->setEnabled(false);
+    shadow->setBlurRadius(2);
+    shadow->setOffset(2);
+    this->setGraphicsEffect(shadow);
+
+    // Colors
+    gradDefault = QRadialGradient( drawBox.x() + 3,
+                                   drawBox.y() + 3,
+                                   (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    gradDefault.setColorAt(0, QColor(249, 249, 249));
+    gradDefault.setColorAt(1, QColor(249, 249, 249));
+
+    gradHighlighted = QRadialGradient( drawBox.x() + 3,
+                                       drawBox.y() + 3,
+                                       (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    gradHighlighted.setColorAt(0, QColor(240, 240, 240));
+    gradHighlighted.setColorAt(1, QColor(210, 210, 210));
+
+    gradClicked = QRadialGradient( drawBox.x() + 3,
+                                   drawBox.y() + 3,
+                                   (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    gradClicked.setColorAt(0, QColor(210, 210, 210));
+    gradClicked.setColorAt(1, QColor(240, 240, 240));
+
+    gradSelected = QRadialGradient( drawBox.x() + 3,
+                                    drawBox.y() + 3,
+                                    (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    gradSelected.setColorAt(0, QColor(110, 226, 218));
+    gradSelected.setColorAt(1, QColor(0, 209, 140));
 }
 
 void VisualNode::moveMeToScenePos(QPointF pos){}
@@ -166,4 +201,13 @@ QPointF snapPoint(const QPointF &pt) {
         y = -y;
 
     return QPointF(x, y);
+}
+
+/*
+ * Return the distance between two points
+ */
+qreal dist(const QPointF &a, const QPointF &b)
+{
+    return qSqrt( qPow( ( a.x() - b.x() ), 2) +
+                  qPow( ( a.y() - b.y() ), 2) );
 }

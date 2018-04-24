@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include "node.h"
+#include "QGraphicsDropShadowEffect"
 
 /*
  * This is the base class for any nodes that need to be drawn / interacted with
@@ -28,6 +29,13 @@ private:
     // Graphics
     //Node2* addChildCut(QPointF scenePt) override;
     void redrawAncestors();
+
+    // TODO: ColorPalette
+    QRadialGradient gradDefault;
+    QRadialGradient gradHighlighted;
+    QRadialGradient gradClicked;
+    QRadialGradient gradSelected;
+    QGraphicsDropShadowEffect* shadow;
 
     // Selection
     void toggleSelection();
