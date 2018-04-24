@@ -15,6 +15,8 @@ public:
     //Node2* addChildPlaceholder(QPointF scenePt) override;
 
 private:
+    QString letter;
+    QFont font;
     void paint(QPainter* painter,
                const QStyleOptionGraphicsItem* option,
                QWidget* widget) override;

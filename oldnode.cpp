@@ -20,8 +20,6 @@
 #define Z_NORMAL 0
 #define Z_RAISED 10
 
-#define BORDER_RADIUS 10
-
 // Forward declarations for helper functions (implementation located at end)
 QPointF snapPoint(const QPointF &pt);
 qreal dist(const QPointF &a, const QPointF &b);
