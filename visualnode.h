@@ -7,15 +7,18 @@
 
 /*
  * This is the base class for any nodes that need to be drawn / interacted with
- * i.e. statements and cuts. This enables us to reuse a lot of the collision
- * and mouse control logic but prevent root nodes from using any of that info
+ * by the user.
+ *
+ * Right now, these are just statements and cuts. This enables us to reuse a lot
+ * of the collision and mouse control logic where we can and leave the root node
+ * ignorant of all that.
+ *
+ * Children of this class must implement drawMeHere() which places the node onto
+ * the canvas as required.
  */
-class VisualNode : public Node, public QGraphicsObject
-{
+class VisualNode : public Node, public QGraphicsObject {
 public:
     VisualNode();
-
-    //void moveMeToScenePos(QPointF scenePt);
 
     virtual void drawMeHere(QPointF scenePt) = 0;
 
@@ -26,6 +29,8 @@ protected:
 
     //QRadialGradient gradHighlighted;
     //QRadialGradient gradDefault;
+
+    //TODO: update these to ColorPalette method / return to gradients
     QColor gradDefault;
     QColor gradHighlighted;
     QRadialGradient gradClicked;
@@ -40,7 +45,6 @@ private:
     QPainterPath shape() const override;
 
     // Graphics
-    //Node2* addChildCut(QPointF scenePt) override;
     void redrawAncestors();
 
     // TODO: ColorPalette
@@ -67,7 +71,6 @@ private:
 
     // TODO: Prediction
     QPointF findPoint(const QList<QPointF> &bloom, qreal w, qreal h);
-
     QRectF boundingRect() const override;
 };
 

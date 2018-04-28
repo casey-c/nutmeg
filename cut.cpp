@@ -2,14 +2,10 @@
 #include "constants.h"
 #include <QDebug>
 
-Cut::Cut(Canvas* canvas)
-{
+Cut::Cut(Canvas* canvas) {
     this->canvas = canvas;
-        //QPointF br(pt.x() + qreal(EMPTY_CUT_SIZE),
-                   //pt.y() + qreal(EMPTY_CUT_SIZE));
-        //drawBox = QRectF(pt, br);
-
 }
+
 void Cut::drawMeHere(QPointF scenePt) {
     // Need to map the scene pt into my parent's coords
     QPointF pt = mapToParent(mapFromScene(scenePt));

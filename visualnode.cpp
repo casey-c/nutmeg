@@ -57,9 +57,15 @@ VisualNode::VisualNode()
 
 void VisualNode::redrawAncestors() {}
 
-void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {}
-void VisualNode::mouseMoveEvent(QGraphicsSceneMouseEvent* evt) {}
-void VisualNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) {}
+void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {
+    Q_UNUSED(evt)
+}
+void VisualNode::mouseMoveEvent(QGraphicsSceneMouseEvent* evt) {
+    Q_UNUSED(evt)
+}
+void VisualNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) {
+    Q_UNUSED(evt)
+}
 
 void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
     qDebug() << "hover entered node" << myID;
