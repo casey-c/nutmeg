@@ -1,5 +1,6 @@
 #include "cut.h"
 #include "constants.h"
+#include <QDebug>
 
 Cut::Cut()
 {
@@ -19,6 +20,14 @@ void Cut::paint(QPainter* painter,
       painter->setBrush(QBrush(gradHighlighted));
     else
       painter->setBrush(QBrush(gradDefault));
+
+    qDebug() << "painting cut " << myID;
+
+    qDebug() << "drawBox is ("
+             << drawBox.topLeft().x() << ","
+             << drawBox.topLeft().y() << ") ; ("
+             << drawBox.bottomRight().x() << ","
+             << drawBox.bottomRight().y() << ")";
 
     painter->drawRoundedRect(drawBox, qreal(BORDER_RADIUS), qreal(BORDER_RADIUS));
 }

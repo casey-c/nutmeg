@@ -4,10 +4,16 @@
 #include <QList>
 #include <QDebug>
 
+int Node::globalID = 0;
+
 /*
  * Constructor for an arbitrary node
  */
-Node::Node() : fertile(true) { }
+Node::Node() :
+    fertile(true),
+    myID(globalID++)
+{
+}
 
 /*
  * Adds the newest child to my children list and calls the recursive update
@@ -21,6 +27,7 @@ void Node::adoptChild(Node* child) {
     }
 
     children.append(child);
+    child->parent = this;
     child->updateTree();
 }
 

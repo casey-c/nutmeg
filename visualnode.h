@@ -15,7 +15,9 @@ class VisualNode : public Node, public QGraphicsObject
 public:
     VisualNode();
 
-    void moveMeToScenePos(QPointF scenePt);
+    //void moveMeToScenePos(QPointF scenePt);
+
+    void drawMeHere(QPointF scenePt);
 
 protected:
     QRectF drawBox;
@@ -32,6 +34,8 @@ private:
     QRectF sceneCollisionBox() const;
     QRectF localCollisionBox() const;
     QRectF sceneDrawBox() const;
+
+    QPainterPath shape() const override;
 
     // Graphics
     //Node2* addChildCut(QPointF scenePt) override;

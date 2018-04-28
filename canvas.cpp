@@ -5,16 +5,17 @@
 #include <QGraphicsRectItem>
 #include "nodefactory.h"
 #include "visualnode.h"
+#include "cut.h"
 
 #include "nodefactory.h"
 
 #define SEL_BOX_Z 10
 
 Canvas::Canvas(QWidget* parent) :
-    QGraphicsView(parent),
-    mouseShiftPress(false),
-    noMouseMovement(false),
-    showBounds(true)
+  QGraphicsView(parent),
+  mouseShiftPress(false),
+  noMouseMovement(false),
+  showBounds(true)
 {
   scene = new QGraphicsScene(this);
   scene->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -27,8 +28,8 @@ Canvas::Canvas(QWidget* parent) :
   setTransformationAnchor(AnchorUnderMouse);
   setMinimumSize(400, 400);
 
-    root = NodeFactory::makeRoot(this);
-    highlighted = root;
+  root = NodeFactory::makeRoot(this);
+  highlighted = root;
 
   // Selection box
   selBox = scene->addRect(QRectF(QPointF(0,0), QSizeF(0,0)));
@@ -163,7 +164,7 @@ void Canvas::mousePressEvent(QMouseEvent* event)
   else
   {
     //if (highlighted == root)
-      //clearSelection();
+    //clearSelection();
 
     QGraphicsView::mousePressEvent(event);
   }
@@ -197,6 +198,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event)
 
 void Canvas::setHighlight(Node* node)
 {
+    //highlighted = node;
 #if 0
   highlighted->removeHighlight();
   highlighted = node;
@@ -206,20 +208,23 @@ void Canvas::setHighlight(Node* node)
 
 void Canvas::addCut()
 {
-    qDebug() << "attempting to add cut";
-  Node* m = NodeFactory::addChildCut(highlighted);
+  qDebug() << "attempting to add cut";
+  //Node* m = NodeFactory::addChildCut(highlighted);
+  //VisualNode* n = dynamic_cast<VisualNode*>(m);
 
-  VisualNode* n = dynamic_cast<VisualNode*>(m);
+  Cut* cut = dynamic_cast<Cut*>(NodeFactory::addChildCut(highlighted));
 
-  if (n == nullptr)
+  if (cut == nullptr)
     return;
 
-  n->moveMeToScenePos(lastMousePos);
-
-  if ( n->getParent() == root )
-    scene->addItem(n);
-
-  setHighlight(n);
+  cut->drawMeHere(lastMousePos);
+  if (cut->getParent() == root) {
+      qDebug() << "parent is root";
+      scene->addItem(cut);
+  }
+  else
+      qDebug() << "parent NOT root";
+  setHighlight(cut);
 }
 
 void Canvas::addStatement(QString s)
@@ -230,7 +235,7 @@ void Canvas::addStatement(QString s)
   if (n == nullptr)
     return;
 
-  n->moveMeToScenePos(lastMousePos);
+  //n->moveMeToScenePos(lastMousePos);
 
   if (n->getParent() == root)
     scene->addItem(n);
@@ -317,54 +322,54 @@ void Canvas::addGreenBound(QRectF rect)
 /*
 void Canvas::clearSelection()
 {
-  for (Node* n : selectedNodes)
-    n->removeSelect();
+for (Node* n : selectedNodes)
+n->removeSelect();
 
-  selectedNodes.clear();
+selectedNodes.clear();
 }
 
 void Canvas::selectNode(Node* n)
 {
-  // Make sure we don't add the same node twice
-  if (selectedNodes.contains(n))
-    return;
+// Make sure we don't add the same node twice
+if (selectedNodes.contains(n))
+return;
 
-  // Ensure all nodes in the selection share the same parent
-  if (!selectedNodes.empty())
-  {
-    Node* parent = selectedNodes.first()->getParent();
-    if (n->getParent() != parent)
-      clearSelection();
-  }
+// Ensure all nodes in the selection share the same parent
+if (!selectedNodes.empty())
+{
+Node* parent = selectedNodes.first()->getParent();
+if (n->getParent() != parent)
+clearSelection();
+}
 
-  n->setSelect();
-  selectedNodes.append(n);
+n->setSelect();
+selectedNodes.append(n);
 }
 
 void Canvas::deselectNode(Node* n)
 {
-  selectedNodes.removeOne(n);
-  n->removeSelect();
+selectedNodes.removeOne(n);
+n->removeSelect();
 }
 
 QList<Node*> Canvas::getSelectedNodes()
 {
-  return selectedNodes;
+return selectedNodes;
 }
 
 QList<Node*> Canvas::selectionIncluding(Node* n)
 {
-  if (selectedNodes.contains(n))
-    return selectedNodes;
+if (selectedNodes.contains(n))
+return selectedNodes;
 
-  clearSelection();
-  selectNode(n);
-  return selectedNodes;
+clearSelection();
+selectNode(n);
+return selectedNodes;
 }
 
 bool Canvas::hasAnySelectedNodes()
 {
-  return !selectedNodes.empty();
+return !selectedNodes.empty();
 }
 */
 
@@ -385,19 +390,19 @@ void Canvas::removeFromScene(Node* n)
 void Canvas::deleteSelection()
 {
 #if 0
-  if (selectedNodes.empty() || selectedNodes.first()->isRoot() )
-    return;
+if (selectedNodes.empty() || selectedNodes.first()->isRoot() )
+return;
 
-  // Update highlight
-  highlighted = selectedNodes.first()->getParent();
+// Update highlight
+highlighted = selectedNodes.first()->getParent();
 
-  // Delete everything
-  for (Node* n : selectedNodes)
-  {
-    scene->removeItem(n);
-    delete n;
-  }
-  selectedNodes.clear();
+// Delete everything
+for (Node* n : selectedNodes)
+{
+scene->removeItem(n);
+delete n;
+}
+selectedNodes.clear();
 #endif
 }
 */

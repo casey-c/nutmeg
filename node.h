@@ -41,10 +41,10 @@ protected:
     bool fertile;
     Canvas* canvas;
     bool highlighted, selected;
+    int myID;
 
 private:
     static int globalID;
-    int myID;
 
     Node* parent;
     QList<Node*> children;
