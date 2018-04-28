@@ -30,8 +30,10 @@ VisualNode::VisualNode()
     gradHighlighted = QRadialGradient( drawBox.x() + 3,
                                        drawBox.y() + 3,
                                        (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
-    gradHighlighted.setColorAt(0, QColor(240, 240, 240));
-    gradHighlighted.setColorAt(1, QColor(210, 210, 210));
+    //gradHighlighted.setColorAt(0, QColor(240, 240, 240));
+    //gradHighlighted.setColorAt(1, QColor(210, 210, 210));
+    gradHighlighted.setColorAt(0, QColor(20, 240, 240));
+    gradHighlighted.setColorAt(1, QColor(20, 70, 210));
 
     gradClicked = QRadialGradient( drawBox.x() + 3,
                                    drawBox.y() + 3,
@@ -69,6 +71,7 @@ void VisualNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) {}
 void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
     qDebug() << "hover entered node" << myID;
     canvas->setHighlight(this);
+    update();
     QGraphicsItem::hoverEnterEvent(evt);
 }
 void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {

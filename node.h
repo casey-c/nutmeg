@@ -19,7 +19,6 @@ public:
     Node();
 
     void adoptChild(Node* child);
-    //void moveMe(const QPointF& target); // TODO: put in VisualNode instead
     virtual void updateTree() {}
 
     // Highlight

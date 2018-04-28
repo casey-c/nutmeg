@@ -15,6 +15,7 @@ Cut::Cut(Canvas* canvas)
 void Cut::paint(QPainter* painter,
            const QStyleOptionGraphicsItem* option,
                 QWidget* widget) {
+    qDebug() << "painting cut " << myID;
     if (mouseDown)
       painter->setBrush(QBrush(gradClicked));
     else if (highlighted) {
@@ -24,7 +25,6 @@ void Cut::paint(QPainter* painter,
     else
       painter->setBrush(QBrush(gradDefault));
 
-    qDebug() << "painting cut " << myID;
 
     qDebug() << "drawBox is ("
              << drawBox.topLeft().x() << ","
