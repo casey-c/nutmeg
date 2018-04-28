@@ -33,7 +33,8 @@ SOURCES += \
     visualnode.cpp \
     nodefactory.cpp \
     oldnode.cpp \
-    node.cpp
+    node.cpp \
+    canvas_debug.cpp
 
 HEADERS += \
         mainwindow.h \
