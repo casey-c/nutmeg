@@ -183,11 +183,14 @@ void Canvas::setHighlight(VisualNode* node) {
         highlighted->removeHighlight();
     highlighted = node;
     highlighted->setHighlight();
+    highlighted->update();
 }
 
 void Canvas::removeHighlight(){
-    if (highlighted != nullptr)
+    if (highlighted != nullptr) {
         highlighted->removeHighlight();
+        highlighted->update();
+    }
     highlighted = nullptr;
 }
 
@@ -211,6 +214,7 @@ void Canvas::addCut() {
         scene->addItem(cut);
     else {
         qDebug() << "parent NOT root";
+        // TODO: race condition - highlighted may have changed since cut built
         cut->setParentItem(highlighted);
     }
 
@@ -220,8 +224,13 @@ void Canvas::addCut() {
 void Canvas::addStatement(QString s) {
     qDebug() << "attempting to add statement";
 
-    Statement* statement = NodeFactory::addChildStatement(this, highlighted, s);
+    Statement* statement;
+    if (highlighted == nullptr)
+        statement = NodeFactory::addChildStatement(this, root, s);
+    else
+        statement = NodeFactory::addChildStatement(this, highlighted, s);
 
+    // Not possible to create
     if (statement == nullptr)
         return;
 
@@ -229,6 +238,9 @@ void Canvas::addStatement(QString s) {
 
     if (statement->getParent() == root)
         scene->addItem(statement);
+    else { // race condition, see above
+        statement->setParentItem(highlighted);
+    }
 
 }
 
