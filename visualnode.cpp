@@ -58,22 +58,24 @@ VisualNode::VisualNode()
 void VisualNode::redrawAncestors() {}
 
 void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {
-    Q_UNUSED(evt)
+    QGraphicsItem::mousePressEvent(evt);
 }
 void VisualNode::mouseMoveEvent(QGraphicsSceneMouseEvent* evt) {
-    Q_UNUSED(evt)
+    QGraphicsItem::mouseMoveEvent(evt);
 }
 void VisualNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) {
-    Q_UNUSED(evt)
+    QGraphicsItem::mouseReleaseEvent(evt);
 }
 
 void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
     qDebug() << "hover entered node" << myID;
     canvas->setHighlight(this);
-    update();
+    //update();
+    highlighted = true;
     QGraphicsItem::hoverEnterEvent(evt);
 }
 void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
+    highlighted = false;
     qDebug() << "hover left node" << myID;
     QGraphicsItem::hoverLeaveEvent(evt);
 }
