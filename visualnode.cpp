@@ -10,6 +10,7 @@ qreal dist(const QPointF &a, const QPointF &b);
 
 VisualNode::VisualNode()
 {
+    qDebug() << "in visual node constructor for " << myID;
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
@@ -21,19 +22,23 @@ VisualNode::VisualNode()
     this->setGraphicsEffect(shadow);
 
     // Colors
-    gradDefault = QRadialGradient( drawBox.x() + 3,
-                                   drawBox.y() + 3,
-                                   (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
-    gradDefault.setColorAt(0, QColor(249, 249, 249));
-    gradDefault.setColorAt(1, QColor(249, 249, 249));
+    //gradDefault = QRadialGradient( drawBox.x() + 3,
+                                   //drawBox.y() + 3,
+                                   //(dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    //gradDefault.setColorAt(0, QColor(249, 249, 249));
+    //gradDefault.setColorAt(1, QColor(249, 249, 249));
+    //gradDefault.setColorAt(0, QColor(20, 70, 144));
+    //gradDefault.setColorAt(1, QColor(15, 144, 20));
+    gradDefault = QColor(20,66,155);
+    gradHighlighted = QColor(77,33,20);
 
-    gradHighlighted = QRadialGradient( drawBox.x() + 3,
-                                       drawBox.y() + 3,
-                                       (dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
+    //gradHighlighted = QRadialGradient( drawBox.x() + 3,
+                                       //drawBox.y() + 3,
+                                       //(dist(drawBox.topLeft(), drawBox.bottomRight()) * 2 ));
     //gradHighlighted.setColorAt(0, QColor(240, 240, 240));
     //gradHighlighted.setColorAt(1, QColor(210, 210, 210));
-    gradHighlighted.setColorAt(0, QColor(20, 240, 240));
-    gradHighlighted.setColorAt(1, QColor(20, 70, 210));
+    //gradHighlighted.setColorAt(0, QColor(20, 240, 240));
+    //gradHighlighted.setColorAt(1, QColor(20, 70, 210));
 
     gradClicked = QRadialGradient( drawBox.x() + 3,
                                    drawBox.y() + 3,

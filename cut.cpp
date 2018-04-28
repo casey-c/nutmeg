@@ -22,8 +22,10 @@ void Cut::paint(QPainter* painter,
       painter->setBrush(QBrush(gradHighlighted));
       qDebug() << "highlighted yes";
     }
-    else
-      painter->setBrush(QBrush(gradDefault));
+    else {
+        qDebug() << "grad default";
+        painter->setBrush(QBrush(gradDefault));
+    }
 
 
     qDebug() << "drawBox is ("

@@ -11,6 +11,7 @@ int Node::globalID = 0;
  */
 Node::Node() :
     fertile(true),
+    highlighted(false),
     myID(globalID++)
 {
 }

@@ -24,10 +24,12 @@ protected:
 
     bool mouseDown;
 
-    QRadialGradient gradHighlighted;
+    //QRadialGradient gradHighlighted;
+    //QRadialGradient gradDefault;
+    QColor gradDefault;
+    QColor gradHighlighted;
     QRadialGradient gradClicked;
     QRadialGradient gradSelected;
-    QRadialGradient gradDefault;
 
 private:
     // Boxes

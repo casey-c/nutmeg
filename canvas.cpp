@@ -200,8 +200,8 @@ void Canvas::setHighlight(Node* node)
 {
     qDebug() << "canvas setting highlight" << node->getID();
     //highlighted->removeHighlight();
-    highlighted = node;
-    highlighted->setHighlight();
+    //highlighted = node;
+    //highlighted->setHighlight();
 }
 
 void Canvas::addCut()
