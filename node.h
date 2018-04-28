@@ -32,6 +32,8 @@ public:
     Node* getLeftSibling();
     Node* getFirstChild();
 
+    int getID() { return myID; }
+
 
     static void setSelectionFromBox(Node* root, QRectF selBox);
 

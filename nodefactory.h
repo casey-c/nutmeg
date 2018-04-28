@@ -13,7 +13,7 @@ public:
 
     static Node* makeRoot(Canvas* canvas);
 
-    static Node* addChildCut(Node* targetParent);
+    static Node* addChildCut(Canvas* canvas, Node* targetParent);
     static Node* addChildStatement(Node* targetParent, QString s);
 
     static Node* surroundWithCut(Node* targetParent, QList<Node*> targets);

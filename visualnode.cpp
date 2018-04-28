@@ -66,8 +66,15 @@ void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {}
 void VisualNode::mouseMoveEvent(QGraphicsSceneMouseEvent* evt) {}
 void VisualNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* evt) {}
 
-void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {}
-void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {}
+void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
+    qDebug() << "hover entered node" << myID;
+    canvas->setHighlight(this);
+    QGraphicsItem::hoverEnterEvent(evt);
+}
+void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
+    qDebug() << "hover left node" << myID;
+    QGraphicsItem::hoverLeaveEvent(evt);
+}
 
 QRectF VisualNode::boundingRect() const { return drawBox; }
 

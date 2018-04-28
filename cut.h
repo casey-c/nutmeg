@@ -6,7 +6,7 @@
 class Cut : public VisualNode
 {
 public:
-    Cut();
+    Cut(Canvas* canvas);
 
 private:
     void paint(QPainter* painter,

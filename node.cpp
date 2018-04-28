@@ -15,6 +15,10 @@ Node::Node() :
 {
 }
 
+void Node::setHighlight() {
+   highlighted = true;
+}
+
 /*
  * Adds the newest child to my children list and calls the recursive update
  * to fix the tree.

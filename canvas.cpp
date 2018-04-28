@@ -198,12 +198,10 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event)
 
 void Canvas::setHighlight(Node* node)
 {
-    //highlighted = node;
-#if 0
-  highlighted->removeHighlight();
-  highlighted = node;
-  highlighted->setAsHighlight();
-#endif
+    qDebug() << "canvas setting highlight" << node->getID();
+    //highlighted->removeHighlight();
+    highlighted = node;
+    highlighted->setHighlight();
 }
 
 void Canvas::addCut()
@@ -212,7 +210,7 @@ void Canvas::addCut()
   //Node* m = NodeFactory::addChildCut(highlighted);
   //VisualNode* n = dynamic_cast<VisualNode*>(m);
 
-  Cut* cut = dynamic_cast<Cut*>(NodeFactory::addChildCut(highlighted));
+  Cut* cut = dynamic_cast<Cut*>(NodeFactory::addChildCut(this,highlighted));
 
   if (cut == nullptr)
     return;

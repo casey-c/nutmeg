@@ -11,11 +11,11 @@ Node* NodeFactory::makeRoot(Canvas* canvas) {
     return new Root(canvas);
 }
 
-Node* NodeFactory::addChildCut(Node* targetParent) {
+Node* NodeFactory::addChildCut(Canvas* canvas, Node* targetParent) {
     if (!targetParent->canHaveKids())
       return nullptr;
 
-    Node* cut = new Cut();
+    Node* cut = new Cut(canvas);
     targetParent->adoptChild(cut);
     //targetParent->updateTree();
 
