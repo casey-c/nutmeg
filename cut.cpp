@@ -24,6 +24,9 @@ void Cut::drawMeHere(QPointF scenePt) {
 void Cut::paint(QPainter* painter,
            const QStyleOptionGraphicsItem* option,
                 QWidget* widget) {
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
+
     qDebug() << "painting cut " << myID;
     if (mouseDown)
       painter->setBrush(QBrush(gradClicked));

@@ -1,15 +1,22 @@
 #include "statement.h"
 #include "constants.h"
+#include <QDebug>
 
-Statement::Statement(QString s)
-{
+Statement::Statement(Canvas* canvas, QString s) {
     fertile = false;
     letter = s;
     font = QFont();
+    this->canvas = canvas;
 }
 
 void Statement::drawMeHere(QPointF scenePt) {
+    // Need to map the scene pt into my parent's coords
+    QPointF pt = mapToParent(mapFromScene(scenePt));
 
+    QPointF br(pt.x() + qreal(STATEMENT_SIZE),
+               pt.y() + qreal(STATEMENT_SIZE));
+    drawBox = QRectF(pt, br);
+    prepareGeometryChange();
 }
 
 //Node2* Statement::addChildCut(QPointF scenePt) { return nullptr; }
@@ -21,6 +28,8 @@ void Statement::paint(QPainter* painter,
            QWidget* widget) {
     Q_UNUSED(option)
     Q_UNUSED(widget)
+
+    qDebug() << "painting statement " << myID;
 
     painter->setPen(QPen(QColor(0,0,0,0)));
 
