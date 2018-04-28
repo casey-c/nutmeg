@@ -14,6 +14,8 @@ public:
     //Node2* addChildStatement(QPointF scenePt) override;
     //Node2* addChildPlaceholder(QPointF scenePt) override;
 
+    void drawMeHere(QPointF scenePt) override;
+
 private:
     QString letter;
     QFont font;

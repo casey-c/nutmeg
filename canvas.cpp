@@ -210,7 +210,8 @@ void Canvas::addCut()
   //Node* m = NodeFactory::addChildCut(highlighted);
   //VisualNode* n = dynamic_cast<VisualNode*>(m);
 
-  Cut* cut = dynamic_cast<Cut*>(NodeFactory::addChildCut(this,highlighted));
+  //Cut* cut = dynamic_cast<Cut*>(NodeFactory::addChildCut(this,highlighted));
+  Cut* cut = NodeFactory::addChildCut(this, highlighted);
 
   if (cut == nullptr)
     return;

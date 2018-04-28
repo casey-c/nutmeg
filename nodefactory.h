@@ -2,6 +2,7 @@
 #define NODEFACTORY_H
 
 #include "node.h"
+#include "cut.h"
 
 /*
  * This class is responsible for managing the creation of nodes.
@@ -13,7 +14,8 @@ public:
 
     static Node* makeRoot(Canvas* canvas);
 
-    static Node* addChildCut(Canvas* canvas, Node* targetParent);
+    //static Node* addChildCut(Canvas* canvas, Node* targetParent);
+    static Cut* addChildCut(Canvas* canvas, Node* targetParent);
     static Node* addChildStatement(Node* targetParent, QString s);
 
     static Node* surroundWithCut(Node* targetParent, QList<Node*> targets);

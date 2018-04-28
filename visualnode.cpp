@@ -55,18 +55,6 @@ VisualNode::VisualNode()
 
 //void VisualNode::moveMeToScenePos(QPointF pos){}
 
-void VisualNode::drawMeHere(QPointF scenePt) {
-    // Need to map the scene pt into my parent's coords
-    QPointF pt = mapToParent(mapFromScene(scenePt));
-
-    qDebug() << "drawing SCENE" << myID << " at pos " << scenePt.x() << "," << scenePt.y();
-    qDebug() << "drawing parent?" << myID << " at pos " << pt.x() << "," << pt.y();
-    QPointF br(pt.x() + qreal(EMPTY_CUT_SIZE),
-               pt.y() + qreal(EMPTY_CUT_SIZE));
-    drawBox = QRectF(pt, br);
-    prepareGeometryChange();
-}
-
 void VisualNode::redrawAncestors() {}
 
 void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {}

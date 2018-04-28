@@ -8,6 +8,10 @@ Statement::Statement(QString s)
     font = QFont();
 }
 
+void Statement::drawMeHere(QPointF scenePt) {
+
+}
+
 //Node2* Statement::addChildCut(QPointF scenePt) { return nullptr; }
 //Node2* Statement::addChildStatement(QPointF scenePt) { return nullptr; }
 //Node2* Statement::addChildPlaceholder(QPointF scenePt) { return nullptr; }

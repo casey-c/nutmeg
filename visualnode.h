@@ -17,7 +17,7 @@ public:
 
     //void moveMeToScenePos(QPointF scenePt);
 
-    void drawMeHere(QPointF scenePt);
+    virtual void drawMeHere(QPointF scenePt) = 0;
 
 protected:
     QRectF drawBox;

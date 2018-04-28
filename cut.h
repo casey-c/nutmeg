@@ -8,6 +8,8 @@ class Cut : public VisualNode
 public:
     Cut(Canvas* canvas);
 
+    void drawMeHere(QPointF scenePt) override;
+
 private:
     void paint(QPainter* painter,
                const QStyleOptionGraphicsItem* option,
