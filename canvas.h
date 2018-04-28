@@ -12,6 +12,7 @@ public:
     ~Canvas() {}
 
     void setHighlight(Node* node);
+    void removeHighlight();
 
     void clearBounds();
     void addRedBound(QRectF rect);

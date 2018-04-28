@@ -199,9 +199,15 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event)
 void Canvas::setHighlight(Node* node)
 {
     qDebug() << "canvas setting highlight" << node->getID();
-    //highlighted->removeHighlight();
-    //highlighted = node;
-    //highlighted->setHighlight();
+    highlighted->removeHighlight();
+    highlighted = node;
+    highlighted->setHighlight();
+}
+
+void Canvas::removeHighlight(){
+    highlighted->removeHighlight();
+    highlighted = root;
+    highlighted->setHighlight();
 }
 
 void Canvas::addCut()
@@ -223,7 +229,7 @@ void Canvas::addCut()
   }
   else
       qDebug() << "parent NOT root";
-  setHighlight(cut);
+  //setHighlight(cut);
 }
 
 void Canvas::addStatement(QString s)
@@ -239,7 +245,7 @@ void Canvas::addStatement(QString s)
   if (n->getParent() == root)
     scene->addItem(n);
 
-  setHighlight(n);
+  //setHighlight(n);
 }
 
 void Canvas::addPlaceholder()

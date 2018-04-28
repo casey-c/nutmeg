@@ -69,6 +69,7 @@ void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
 }
 void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
     qDebug() << "hover left node" << myID;
+    canvas->removeHighlight();
     QGraphicsItem::hoverLeaveEvent(evt);
 }
 
