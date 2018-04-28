@@ -7,7 +7,7 @@ NodeFactory::NodeFactory() {
 
 }
 
-Node* NodeFactory::makeRoot(Canvas* canvas) {
+Root* NodeFactory::makeRoot(Canvas* canvas) {
     return new Root(canvas);
 }
 
@@ -22,11 +22,11 @@ Cut* NodeFactory::addChildCut(Canvas* canvas, Node* targetParent) {
     return cut;
 }
 
-Node* NodeFactory::addChildStatement(Node* targetParent, QString s) {
+Statement* NodeFactory::addChildStatement(Canvas* canvas, Node* targetParent, QString s) {
     if (!targetParent->canHaveKids())
       return nullptr;
 
-    Node* statement = new Statement(s);
+    Statement* statement = new Statement(canvas, s);
     targetParent->adoptChild(statement);
     //targetParent->updateTree();
 
