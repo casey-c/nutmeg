@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 
+class VisualNode;
 class Node;
 
 class Canvas : public QGraphicsView
@@ -11,7 +12,7 @@ public:
     Canvas(QWidget* parent = 0);
     ~Canvas() {}
 
-    void setHighlight(Node* node);
+    void setHighlight(VisualNode* node);
     void removeHighlight();
 
     void clearBounds();
@@ -41,7 +42,8 @@ private:
     //////////////
 
     Node* root;
-    Node* highlighted;
+    //Node* highlighted;
+    VisualNode* highlighted;
 
     QPointF lastMousePos;
 

@@ -29,7 +29,7 @@ Canvas::Canvas(QWidget* parent) :
     setMinimumSize(400, 400);
 
     root = NodeFactory::makeRoot(this);
-    highlighted = root;
+    highlighted = nullptr;
 
     // Selection box
     selBox = scene->addRect(QRectF(QPointF(0,0), QSizeF(0,0)));
@@ -177,35 +177,44 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event) {
     QGraphicsView::mouseReleaseEvent(event);
 }
 
-void Canvas::setHighlight(Node* node) {
+void Canvas::setHighlight(VisualNode* node) {
     qDebug() << "canvas setting highlight" << node->getID();
-    highlighted->removeHighlight();
+    if (highlighted != nullptr)
+        highlighted->removeHighlight();
     highlighted = node;
     highlighted->setHighlight();
 }
 
 void Canvas::removeHighlight(){
-    highlighted->removeHighlight();
-    highlighted = root;
-    highlighted->setHighlight();
+    if (highlighted != nullptr)
+        highlighted->removeHighlight();
+    highlighted = nullptr;
 }
 
 void Canvas::addCut() {
     qDebug() << "attempting to add cut";
-    Cut* cut = NodeFactory::addChildCut(this, highlighted);
 
+    Cut* cut;
+    if (highlighted == nullptr)
+        cut = NodeFactory::addChildCut(this, root);
+    else
+        cut = NodeFactory::addChildCut(this, highlighted);
+
+    // Not possible to create
     if (cut == nullptr)
         return;
 
     // Perform move
     cut->drawMeHere(lastMousePos);
 
-    if (cut->getParent() == root)
+    if (highlighted == nullptr)
         scene->addItem(cut);
-    else
+    else {
         qDebug() << "parent NOT root";
+        cut->setParentItem(highlighted);
+    }
 
-
+    //setHighlight(cut);
 }
 
 void Canvas::addStatement(QString s) {

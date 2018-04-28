@@ -10,6 +10,7 @@ qreal dist(const QPointF &a, const QPointF &b);
 
 VisualNode::VisualNode()
 {
+    mouseDown = false;
     qDebug() << "in visual node constructor for " << myID;
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
@@ -71,11 +72,11 @@ void VisualNode::hoverEnterEvent(QGraphicsSceneHoverEvent* evt) {
     qDebug() << "hover entered node" << myID;
     canvas->setHighlight(this);
     //update();
-    highlighted = true;
+    //highlighted = true;
     QGraphicsItem::hoverEnterEvent(evt);
 }
 void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
-    highlighted = false;
+    //highlighted = false;
     qDebug() << "hover left node" << myID;
     canvas->removeHighlight();
     QGraphicsItem::hoverLeaveEvent(evt);

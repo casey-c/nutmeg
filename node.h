@@ -4,6 +4,8 @@
 #include <QPointF>
 #include "canvas.h"
 
+class Canvas;
+
 /*
  * The new node class. This base class ensures that we can maintain the graph
  * tree hierarchy correctly, and reuse the highlight / selection information
@@ -32,8 +34,6 @@ public:
     Node* getFirstChild();
 
     int getID() { return myID; }
-
-
     static void setSelectionFromBox(Node* root, QRectF selBox);
 
     bool canHaveKids() { return fertile; }
