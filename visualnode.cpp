@@ -34,7 +34,7 @@ VisualNode::VisualNode()
     //gradDefault.setColorAt(0, QColor(20, 70, 144));
     //gradDefault.setColorAt(1, QColor(15, 144, 20));
     gradDefault = QColor(249,249,249);
-    gradHighlighted = QColor(210,210,210);
+    gradHighlighted = QColor(232,232,232);
 
     //gradHighlighted = QRadialGradient( drawBox.x() + 3,
                                        //drawBox.y() + 3,
