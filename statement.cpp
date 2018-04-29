@@ -6,7 +6,7 @@ Statement::Statement(Canvas* canvas, QString s) {
     fertile = false;
     letter = s;
     font = QFont();
-    font.setPixelSize(GRID_SPACING);
+    font.setPixelSize(GRID_SPACING * 2);
     this->canvas = canvas;
 }
 

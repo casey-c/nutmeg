@@ -2,6 +2,7 @@
 //#include "node.h"
 #include <QKeyEvent>
 #include <QDebug>
+#include "helpers.h"
 //#include <QGraphicsRectItem>
 #include "nodefactory.h"
 #include "visualnode.h"
@@ -208,7 +209,7 @@ void Canvas::addCut() {
         return;
 
     // Perform move
-    cut->drawMeHere(lastMousePos);
+    cut->drawMeHere(snapScenePoint(lastMousePos));
 
     if (highlighted == nullptr)
         scene->addItem(cut);
@@ -236,7 +237,7 @@ void Canvas::addStatement(QString s) {
     if (statement == nullptr)
         return;
 
-    statement->drawMeHere(lastMousePos);
+    statement->drawMeHere(snapScenePoint(lastMousePos));
 
     if (statement->getParent() == root)
         scene->addItem(statement);

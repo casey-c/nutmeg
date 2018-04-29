@@ -34,7 +34,8 @@ SOURCES += \
     nodefactory.cpp \
     oldnode.cpp \
     node.cpp \
-    canvas_debug.cpp
+    canvas_debug.cpp \
+    helpers.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS += \
     nodefactory.h \
     constants.h \
     oldnode.h \
-    node.h
+    node.h \
+    helpers.h
 
 FORMS += \
         mainwindow.ui
