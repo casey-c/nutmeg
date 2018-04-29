@@ -240,8 +240,9 @@ void Canvas::addStatement(QString s) {
 
     if (statement->getParent() == root)
         scene->addItem(statement);
-    else { // race condition, see above
+    else { // potential race condition, see above
         statement->setParentItem(highlighted);
+        highlighted->updateTree();
     }
 
 }

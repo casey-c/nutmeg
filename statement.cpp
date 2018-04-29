@@ -6,6 +6,7 @@ Statement::Statement(Canvas* canvas, QString s) {
     fertile = false;
     letter = s;
     font = QFont();
+    font.setPixelSize(GRID_SPACING);
     this->canvas = canvas;
 }
 
@@ -25,19 +26,25 @@ void Statement::paint(QPainter* painter,
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    //qDebug() << "painting statement " << myID;
+    qDebug() << "painting statement " << myID;
 
     painter->setPen(QPen(QColor(0,0,0,0)));
 
-    if (selected)
+    if (selected) {
+        qDebug() << "selected";
         painter->setBrush(QBrush(gradSelected));
+    }
+    else if (mouseDown) {
+        qDebug() << "clicked";
+        painter->setBrush(QBrush(gradClicked));
+    }
+    else if (highlighted) {
+        qDebug() << "highlighted";
+        painter->setBrush(QBrush(gradHighlighted));
+    }
     else {
-        if (mouseDown)
-            painter->setBrush(QBrush(gradClicked));
-        else if (highlighted)
-            painter->setBrush(QBrush(gradHighlighted));
-        else
-            painter->setBrush(QBrush(gradDefault));
+        qDebug() << "default";
+        painter->setBrush(QBrush(gradDefault));
     }
 
     painter->drawRoundedRect(drawBox, qreal(BORDER_RADIUS), qreal(BORDER_RADIUS));

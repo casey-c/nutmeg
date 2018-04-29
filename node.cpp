@@ -12,6 +12,7 @@ int Node::globalID = 0;
 Node::Node() :
     fertile(true),
     highlighted(false),
+    selected(false),
     myID(globalID++)
 {
 }
@@ -37,7 +38,6 @@ void Node::adoptChild(Node* child) {
 
     nodeChildren.append(child);
     child->nodeParent = this;
-    //updateTree();
 }
 
 #if 0
