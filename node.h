@@ -21,14 +21,13 @@ public:
     Node();
 
     void adoptChild(Node* child);
-    virtual void updateTree() {}
 
     // Highlight
     void setHighlight();
     void removeHighlight();
 
     // Tree relations
-    Node* getParent() const { return parent; }
+    Node* getParent() const { return nodeParent; }
     Node* getRightSibling();
     Node* getLeftSibling();
     Node* getFirstChild();
@@ -38,17 +37,19 @@ public:
 
     bool canHaveKids() { return fertile; }
 
+    virtual void updateTree() {}
+
 protected:
     bool fertile;
     Canvas* canvas;
     bool highlighted, selected;
     int myID;
 
+    Node* nodeParent;
+    QList<Node*> nodeChildren;
 private:
     static int globalID;
 
-    Node* parent;
-    QList<Node*> children;
 };
 
 #endif // NODE_H

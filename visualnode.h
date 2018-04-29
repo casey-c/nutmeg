@@ -22,6 +22,8 @@ public:
 
     virtual void drawMeHere(QPointF scenePt) = 0;
 
+    void updateTree() override;
+
 protected:
     QRectF drawBox;
 
@@ -45,7 +47,6 @@ private:
     QPainterPath shape() const override;
 
     // Graphics
-    void redrawAncestors();
 
     // TODO: ColorPalette
     QGraphicsDropShadowEffect* shadow;

@@ -25,7 +25,7 @@ void Statement::paint(QPainter* painter,
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    qDebug() << "painting statement " << myID;
+    //qDebug() << "painting statement " << myID;
 
     painter->setPen(QPen(QColor(0,0,0,0)));
 

@@ -178,7 +178,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void Canvas::setHighlight(VisualNode* node) {
-    qDebug() << "canvas setting highlight" << node->getID();
+    //qDebug() << "canvas setting highlight" << node->getID();
     if (highlighted != nullptr)
         highlighted->removeHighlight();
     highlighted = node;
@@ -216,6 +216,8 @@ void Canvas::addCut() {
         qDebug() << "parent NOT root";
         // TODO: race condition - highlighted may have changed since cut built
         cut->setParentItem(highlighted);
+        // percolate changes
+        highlighted->updateTree();
     }
 
     //setHighlight(cut);

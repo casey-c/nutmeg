@@ -7,6 +7,9 @@
 QPointF snapPoint(const QPointF &pt);
 qreal dist(const QPointF &a, const QPointF &b);
 
+QRectF VisualNode::sceneDrawBox() const {
+    return QRectF(mapToScene(drawBox.topLeft()), mapToScene(drawBox.bottomRight()));
+}
 
 VisualNode::VisualNode()
 {
@@ -56,7 +59,48 @@ VisualNode::VisualNode()
 
 //void VisualNode::moveMeToScenePos(QPointF pos){}
 
-void VisualNode::redrawAncestors() {}
+void VisualNode::updateTree() {
+    qDebug() << "\t updateTree node" << myID;
+    qDebug() << "i have " << nodeChildren.size() << "kids";
+
+    QRectF sceneBox(0,0,0,0);
+
+    for (Node* child : nodeChildren) {
+        VisualNode* vn = dynamic_cast<VisualNode*>(child);
+        if (vn == nullptr) {
+            qDebug() << "dyn cast failed, skipping";
+            continue;
+        }
+        else {
+            qDebug() << "dyn cast okay?";
+        }
+
+        QRectF tbox = vn->sceneDrawBox();
+        qDebug() << "tbox now looks like "
+                 << "(" << tbox.left()
+                 << "," << tbox.top()
+                 << "), (" << tbox.right()
+                 << "," << tbox.bottom() << ")";
+
+
+        sceneBox.setLeft(qMin(vn->sceneDrawBox().left(), sceneBox.left()));
+        sceneBox.setTop(qMin(vn->sceneDrawBox().top(), sceneBox.top()));
+        sceneBox.setRight(qMax(vn->sceneDrawBox().right(), sceneBox.right()));
+        sceneBox.setBottom(qMin(vn->sceneDrawBox().bottom(), sceneBox.bottom()));
+    }
+
+    qDebug() << "sceneBox now looks like "
+             << "(" << sceneBox.left()
+             << "," << sceneBox.top()
+             << "), (" << sceneBox.right()
+             << "," << sceneBox.bottom() << ")";
+
+    canvas->addBlackBound(sceneBox);
+
+
+    if (nodeParent != nullptr)
+        nodeParent->updateTree();
+}
 
 void VisualNode::mousePressEvent(QGraphicsSceneMouseEvent* evt) {
     QGraphicsItem::mousePressEvent(evt);

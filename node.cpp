@@ -35,9 +35,9 @@ void Node::adoptChild(Node* child) {
                << "is attempting to adopt a child it cannot have";
     }
 
-    children.append(child);
-    child->parent = this;
-    child->updateTree();
+    nodeChildren.append(child);
+    child->nodeParent = this;
+    //updateTree();
 }
 
 #if 0
