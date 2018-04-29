@@ -33,8 +33,8 @@ VisualNode::VisualNode()
     //gradDefault.setColorAt(1, QColor(249, 249, 249));
     //gradDefault.setColorAt(0, QColor(20, 70, 144));
     //gradDefault.setColorAt(1, QColor(15, 144, 20));
-    gradDefault = QColor(20,66,155);
-    gradHighlighted = QColor(77,33,20);
+    gradDefault = QColor(249,249,249);
+    gradHighlighted = QColor(210,210,210);
 
     //gradHighlighted = QRadialGradient( drawBox.x() + 3,
                                        //drawBox.y() + 3,
@@ -64,15 +64,13 @@ void VisualNode::updateTree() {
     qDebug() << "i have " << nodeChildren.size() << "kids";
 
     QRectF sceneBox(0,0,0,0);
+    bool unset = true;
 
     for (Node* child : nodeChildren) {
         VisualNode* vn = dynamic_cast<VisualNode*>(child);
         if (vn == nullptr) {
             qDebug() << "dyn cast failed, skipping";
             continue;
-        }
-        else {
-            qDebug() << "dyn cast okay?";
         }
 
         QRectF tbox = vn->sceneDrawBox();
@@ -82,11 +80,16 @@ void VisualNode::updateTree() {
                  << "), (" << tbox.right()
                  << "," << tbox.bottom() << ")";
 
-
-        sceneBox.setLeft(qMin(vn->sceneDrawBox().left(), sceneBox.left()));
-        sceneBox.setTop(qMin(vn->sceneDrawBox().top(), sceneBox.top()));
-        sceneBox.setRight(qMax(vn->sceneDrawBox().right(), sceneBox.right()));
-        sceneBox.setBottom(qMin(vn->sceneDrawBox().bottom(), sceneBox.bottom()));
+        if (unset) {
+            sceneBox = tbox;
+            unset = false;
+        }
+        else {
+            sceneBox.setLeft(qMin(vn->sceneDrawBox().left(), sceneBox.left()));
+            sceneBox.setTop(qMin(vn->sceneDrawBox().top(), sceneBox.top()));
+            sceneBox.setRight(qMax(vn->sceneDrawBox().right(), sceneBox.right()));
+            sceneBox.setBottom(qMax(vn->sceneDrawBox().bottom(), sceneBox.bottom()));
+        }
     }
 
     qDebug() << "sceneBox now looks like "
@@ -95,8 +98,16 @@ void VisualNode::updateTree() {
              << "), (" << sceneBox.right()
              << "," << sceneBox.bottom() << ")";
 
-    canvas->addBlackBound(sceneBox);
 
+    // Adjust that box
+    QRectF newBox(sceneBox.left() - GRID_SPACING,
+                  sceneBox.top() - GRID_SPACING,
+                  sceneBox.width() + 2*GRID_SPACING,
+                  sceneBox.height() + 2*GRID_SPACING);
+
+    drawBox = QRectF(mapFromScene(newBox.topLeft()),
+                     mapFromScene(newBox.bottomRight()));
+    prepareGeometryChange();
 
     if (nodeParent != nullptr)
         nodeParent->updateTree();
@@ -123,6 +134,11 @@ void VisualNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* evt) {
     //highlighted = false;
     qDebug() << "hover left node" << myID;
     canvas->removeHighlight();
+    if (nodeParent != nullptr) {
+        VisualNode* p = dynamic_cast<VisualNode*>(nodeParent);
+        if (p != nullptr)
+            canvas->setHighlight(p);
+    }
     QGraphicsItem::hoverLeaveEvent(evt);
 }
 

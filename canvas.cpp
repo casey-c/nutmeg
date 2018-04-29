@@ -178,15 +178,15 @@ void Canvas::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void Canvas::setHighlight(VisualNode* node) {
-    //qDebug() << "canvas setting highlight" << node->getID();
-    if (highlighted != nullptr)
-        highlighted->removeHighlight();
+    removeHighlight();
+
     highlighted = node;
     highlighted->setHighlight();
     highlighted->update();
 }
 
 void Canvas::removeHighlight(){
+    qDebug() << "canvas clearing highlight";
     if (highlighted != nullptr) {
         highlighted->removeHighlight();
         highlighted->update();
